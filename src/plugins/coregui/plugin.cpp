@@ -21,6 +21,9 @@
 #endif
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
     #include <signal.h>
+    #if defined(__FreeBSD__)
+        typedef union sigval sigval_t;
+    #endif /* __FreeBSD__ */
     #include <netinet/in.h>
     #include <arpa/inet.h>
     #include <stdlib.h>

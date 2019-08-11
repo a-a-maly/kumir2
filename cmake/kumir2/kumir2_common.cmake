@@ -9,7 +9,7 @@ else()
     # The script exists only if build from main sources tree, but not using SDK
     if(EXISTS "${CMAKE_SOURCE_DIR}/scripts/query_version_info.py")
         execute_process(
-            COMMAND ${PYTHON_EXECUTABLE} "${CMAKE_SOURCE_DIR}/scripts/query_version_info.py" "--mode=cmake_disabled_modules"
+            COMMAND ${PYTHON_EXECUTABLE} "${CMAKE_SOURCE_DIR}/scripts/query_version_info.py" "--mode=cmake_disabled_modules" "--toplevel=${CMAKE_SOURCE_DIR}"
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             OUTPUT_VARIABLE DISABLED_SUBDIRS
         )

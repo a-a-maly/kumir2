@@ -44,28 +44,34 @@ def _add_path_env(value):
     os.environ['PATH'] = new_path
 
 
+GIT_FOUND = False
+
 for path_variant in GIT_PATH_SEARCH:
     candidate = path_variant + os.path.sep + "git"
     if "nt" == os.name:
         candidate += ".exe"
     if os.path.exists(candidate):
         _add_path_env(path_variant)
+        GIT_FOUND = True
         break
+
+if not GIT_FOUND:
     sys.stderr.write("Git executable not found!\n")
     sys.exit(1)
 
+TOP_LEVEL_DIR = os.getcwd()
 
-def get_version_information(top_level_dir):
-    assert isinstance(top_level_dir, str)
+def get_version_information():
+    assert isinstance(TOP_LEVEL_DIR, str)
     result = {
         "taggedRelease": False,
         "version": None,
         "hash": None,
         "branch": None,
-        "date": get_date(top_level_dir)
+        "date": get_date()
     }
 
-    if os.path.exists(top_level_dir + os.path.sep + ".git"):
+    if os.path.exists(TOP_LEVEL_DIR + os.path.sep + ".git"):
         try:
             version_info = subprocess.check_output(
                 "git describe --abbrev=0 --tags --exact-match",
@@ -111,7 +117,7 @@ def get_version_information(top_level_dir):
         result["hash"] = hash_tag
 
     else:
-        dir_name = os.path.basename(top_level_dir)
+        dir_name = os.path.basename(TOP_LEVEL_DIR)
         match = re.match(r"kumir2-(.+)", dir_name)
         version_info = match.group(1)
         if version_info.startswith("2"):
@@ -121,16 +127,16 @@ def get_version_information(top_level_dir):
     return result
 
 
-def get_date(top_level_dir):
-    timestamp = int(get_timestamp(top_level_dir))
+def get_date():
+    timestamp = int(get_timestamp())
     localtime = time.localtime(timestamp)
     assert isinstance(localtime, time.struct_time)
     return "{:04}{:02}{:02}".format(localtime.tm_year, localtime.tm_mon, localtime.tm_mday)
 
 
-def get_timestamp(top_level_dir):
-    assert isinstance(top_level_dir, str)
-    if os.path.exists(top_level_dir + os.path.sep + ".git"):
+def get_timestamp():
+    assert isinstance(TOP_LEVEL_DIR, str)
+    if os.path.exists(TOP_LEVEL_DIR + os.path.sep + ".git"):
         return to_str(subprocess.check_output(
             "git --no-pager log -1 --pretty=format:%ct",
             shell=True,
@@ -145,7 +151,7 @@ def is_tag(version):
 
 
 def find_suitable_list_file_name(version_info):
-    base = os.getcwd() + os.path.sep + "subdirs-disabled-{}.txt"
+    base = TOP_LEVEL_DIR + os.path.sep + "subdirs-disabled-{}.txt"
     if version_info["taggedRelease"]:
         name = base.format(version_info["version"])
     else:
@@ -164,7 +170,7 @@ def find_suitable_list_file_name(version_info):
 
 
 def disabled_modules():
-    version_info = get_version_information(os.getcwd())
+    version_info = get_version_information()
     disabled_list_file_name = find_suitable_list_file_name(version_info)
     disabled_list = []
     if disabled_list_file_name:
@@ -186,9 +192,9 @@ def cmake_disabled_modules():
 
 
 def cmake_version_info():
-    version_name = get_version_information(os.getcwd())
+    version_name = get_version_information()
     assert isinstance(version_name, dict)
-    timestamp = get_timestamp(os.getcwd())
+    timestamp = get_timestamp()
     output = ""
     if version_name["taggedRelease"]:
         output += "-DGIT_TAG=\"{}\";".format(version_name["version"])
@@ -203,9 +209,9 @@ def cmake_version_info():
 
 
 def cmake_version_info_tbht():
-    version_name = get_version_information(os.getcwd())
+    version_name = get_version_information()
     assert isinstance(version_name, dict)
-    timestamp = get_timestamp(os.getcwd())
+    timestamp = get_timestamp()
     output_values = []
     if version_name["taggedRelease"]:
         output_values += to_str(version_name["version"])
@@ -219,7 +225,7 @@ def cmake_version_info_tbht():
 
 
 def source_file_name(prefix: str, suffix: str):
-    version_info = get_version_information(os.getcwd())
+    version_info = get_version_information()
     if version_info["taggedRelease"]:
         version_name = version_info["version"]
     else:
@@ -248,7 +254,7 @@ def package_bundle_name():
 
 
 def nsis_include_file():
-    version_info = get_version_information(os.getcwd())
+    version_info = get_version_information()
     data = ""
     if version_info["taggedRelease"]:
         data += "OutFile \"kumir2-" + version_info["version"] + "-install.exe\"\r\n"
@@ -290,6 +296,7 @@ def get_changelog(max_count=1000, after=(2015, 5, 1)):
 
 def main():
     global OUT_FILE
+    global TOP_LEVEL_DIR
     mode = "package_bundle_name"
     out_file_name = None
     for arg in sys.argv:
@@ -297,6 +304,8 @@ def main():
             mode = arg[7:]
         elif arg.startswith("--out="):
             out_file_name = arg[6:]
+        elif arg.startswith("--toplevel="):
+            TOP_LEVEL_DIR = arg[11:]
     custom_encoding = False
     if out_file_name:
         if mode.startswith("nsis"):

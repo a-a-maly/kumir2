@@ -1,6 +1,9 @@
 #include "messager_unix.h"
 
 #include <signal.h>
+#if defined(__FreeBSD__)
+    typedef union sigval sigval_t;
+#endif /* __FreeBSD__ */
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
