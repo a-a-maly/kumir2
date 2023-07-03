@@ -2,6 +2,7 @@
 #define BYTECODEGENERATOR_INSTRUCTION_H
 
 #include <string>
+#include <cstdint>
 #include <map>
 #include <utility>
 
