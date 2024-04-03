@@ -455,7 +455,7 @@ void TurtlePult::clientDisconnect()
 
 void TurtlePult::logToKumir()
 {
-
+	Logger->CopyLog();
 	emit sendText(Logger->log());
 };
 
