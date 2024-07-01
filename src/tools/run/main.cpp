@@ -190,6 +190,19 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	if(programFile.peek() != '#') {
+		std::string command = "kumir2-bc " + programName;
+		std::system(command.c_str());
+		programName.pop_back();
+		programName.pop_back();
+		programName += "od";
+		programFile = std::ifstream(programName.c_str(), std::ios::in | std::ios::binary);
+		if (!programFile.is_open()) {
+			fprintf(stderr, "Can't open program file: '%s'\n", programName.c_str());
+			return 1;
+		}
+	}
+
 	fprintf(stderr, "Program loaded\n");
 
 	Bytecode::Data programData;
