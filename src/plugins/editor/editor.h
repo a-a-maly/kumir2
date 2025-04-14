@@ -58,7 +58,7 @@ public:
 
 	void saveDocument(const QString &fileName, QString *error) override;
 	void saveDocument(QIODevice *device, QString *error) override;
-	uint32_t currentLineNumber() const;
+	quint32 currentLineNumber() const;
 	void setKumFile(const Shared::Analizer::SourceFileInterface::Data &data);
 	void setPlainText(const QString &data);
 	void setDocumentId(int id);

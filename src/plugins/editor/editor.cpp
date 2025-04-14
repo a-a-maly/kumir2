@@ -1250,7 +1250,7 @@ void EditorInstance::saveDocument(QIODevice *device, QString *error)
 	doc_->undoStack()->setClean();
 }
 
-uint32_t EditorInstance::currentLineNumber() const
+quint32 EditorInstance::currentLineNumber() const
 {
 	return cursor_->row();
 }
