@@ -44,7 +44,7 @@ CommandLineParameter::CommandLineParameter(
 
 CommandLineParameter::CommandLineParameter(
 	const CommandLineParameter &other
-) :
+) : QObject(),
 	allowInGui_(other.allowInGui_),
 	shortName_(other.shortName_),
 	longName_(other.longName_),
