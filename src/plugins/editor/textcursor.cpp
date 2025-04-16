@@ -1222,8 +1222,6 @@ void TextCursor::movePosition(QTextCursor::MoveOperation op, MoveMode m, int n)
 		emit updateRequest(-1, -1);
 	}
 	emitPositionChanged();
-	Q_ASSERT(row_ >= 0);
-	Q_ASSERT(column_ >= 0);
 }
 
 void TextCursor::findLexemBound(uint &row, uint &column, const qint8 dir) const
