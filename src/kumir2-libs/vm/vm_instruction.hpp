@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 #include <string>
+#include <cstdint>
 #include <map>
 #include <utility>
 
