@@ -8,7 +8,7 @@ set(HEADERS
 	csInterface.h
 	editdialog.h
 	interface.h
-	kumfiledialog.h
+	#kumfiledialog.h
 	mainwindow.h
 	newkursdialog.h
 	taskControlInterface.h
@@ -18,7 +18,7 @@ set(MOC_HEADERS
 	course_model.h
 	editdialog.h
 	interface.h
-	kumfiledialog.h
+	#kumfiledialog.h
 	mainwindow.h
 	newkursdialog.h
 )
@@ -28,7 +28,7 @@ set(SOURCES
 	csInterface.cpp
 	editdialog.cpp
 	interface.cpp
-	kumfiledialog.cpp
+	#kumfiledialog.cpp
 	main.cpp
 	mainwindow.cpp
 	newkursdialog.cpp
@@ -50,6 +50,6 @@ kumir2_add_resources(QRC_SOURCES ${RESOURCES})
 
 kumir2_add_tool(
 	NAME        kumir2-courseeditor
-	SOURCES      ${UI_SOURCES} ${MOC_SOURCES} ${SOURCES}
+	SOURCES      ${UI_SOURCES} ${MOC_SOURCES} ${SOURCES} ${RESOURCES} ${QRC_SOURCES}
 	LIBRARIES   ${QT_LIBRARIES}
 )

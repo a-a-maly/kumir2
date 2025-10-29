@@ -18,13 +18,16 @@
 
 #include <QMainWindow>
 #include <QMenu>
+#include <QFile>
+#include <QFileInfo>
+#include <QModelIndex>
 class QSettings;
+class QLineEdit;
 
-#include "kumfiledialog.h"
 #include "course_model.h"
 #include "taskControlInterface.h"
-#include "editdialog.h"
-#include "newkursdialog.h"
+class EditDialog;
+class newKursDialog;
 
 class CSInterface;
 namespace Ui
@@ -49,7 +52,6 @@ public:
 		CS = cs;
 	}
 
-	KumZadanie task;
 	void setup();
 	QString getFileName(QString fileName);
 
@@ -138,6 +140,9 @@ private:
 	bool changed;
 	QStringList lastFiles;
 	QFile lockFile; //Lock main xml file
+
+ public: // ???
+	KumZadanie task;
 };
 
 #endif // MAINWINDOW_H

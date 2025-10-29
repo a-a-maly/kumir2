@@ -1,28 +1,28 @@
 #ifndef NEWKURSDIALOG_H
 #define NEWKURSDIALOG_H
-#include "kumfiledialog.h"
 #include <QDialog>
 
-namespace Ui {
-    class newKursDialog;
+namespace Ui
+{
+	class newKursDialog;
 }
 
 class newKursDialog : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit newKursDialog(QWidget *parent = 0);
-    ~newKursDialog();
-//QString fileName();
+	explicit newKursDialog(QWidget *parent = 0);
+	~newKursDialog();
 
-QString name();
+	QString name() const;
 
 
 public slots:
-void showFileSelect();
+	void showFileSelect();
+
 private:
-    Ui::newKursDialog *ui;
+	Ui::newKursDialog *ui;
 
 };
 

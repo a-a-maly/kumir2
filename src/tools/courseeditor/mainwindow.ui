@@ -558,7 +558,9 @@
    <property name="icon">
     <iconset resource="marks.qrc">
      <normaloff>:/arrow_up.svg</normaloff>
-     <disabledoff>:/arrow_upDIS.svg</disabledoff>:/arrow_up.svg</iconset>
+     <disabledoff>:/arrow_upDIS.svg</disabledoff>
+     :/arrow_up.svg
+    </iconset>
    </property>
    <property name="text">
     <string>Сдвинуть вверх</string>
@@ -571,7 +573,9 @@
    <property name="icon">
     <iconset resource="marks.qrc">
      <normaloff>:/arrow_down.svg</normaloff>
-     <disabledoff>:/arrow_downDIS.svg</disabledoff>:/arrow_down.svg</iconset>
+     <disabledoff>:/arrow_downDIS.svg</disabledoff>
+     :/arrow_down.svg
+    </iconset>
    </property>
    <property name="text">
     <string>Сдвинуть вниз</string>

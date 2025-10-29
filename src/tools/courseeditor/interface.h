@@ -1,8 +1,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include "taskControlInterface.h"
-#include <mainwindow.h>
+#include "mainwindow.h"
 
 class ControlInterface: public QObject, public  taskControlInterface
 {

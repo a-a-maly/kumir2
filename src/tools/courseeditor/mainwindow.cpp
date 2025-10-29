@@ -2,10 +2,15 @@
 #include "ui_mainwindow.h"
 #include "interface.h"
 #include "csInterface.h"
+#include "editdialog.h"
+#include "newkursdialog.h"
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QSettings>
 #include <QProcess>
+
+#include <QDebug>
+#include <QFileDialog>
 
 MainWindowTask::MainWindowTask(QWidget *parent) :
 	QMainWindow(parent),
@@ -27,11 +32,10 @@ void MainWindowTask::setup()
 	settings->setIniCodec("UTF-8");
 	lastFiles = settings->value("RescentFiles").toStringList();
 	customMenu.hide();
-	connect(ui->loadCurs, SIGNAL(activated()), this, SLOT(loadCourse()));
-	connect(ui->actionSave, SIGNAL(activated()), this, SLOT(saveCourse()));
+	connect(ui->loadCurs, SIGNAL(triggered()), this, SLOT(loadCourse()));
+	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveCourse()));
 	connect(ui->treeView, SIGNAL(clicked(QModelIndex)), this, SLOT(showText(QModelIndex)));
 	connect(ui->treeView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(startEdit(QModelIndex)));
-	qDebug() << "Check Connect tttttttttttttttttt";
 	connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(Close()));
 	connect(ui->treeView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(customContextMenuRequested(QPoint)));
 
@@ -51,7 +55,7 @@ void MainWindowTask::setup()
 	connect(ui->actionDown, SIGNAL(triggered()), this, SLOT(moveDown()));
 	connect(ui->actionAdd, SIGNAL(triggered()), this, SLOT(addTask()));
 	connect(ui->addDeep, SIGNAL(triggered()), this, SLOT(addDeepTask()));
-	connect(ui->actionSaveK, SIGNAL(triggered()), this, SLOT(saveKurs()));
+	connect(ui->actionSaveK, SIGNAL(triggered()), this, SLOT(saveCourse()));
 	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveKursAs()));
 	connect(ui->actionRemove, SIGNAL(triggered()), this, SLOT(deleteTask()));
 	connect(ui->actionMakeSection, SIGNAL(triggered()), this, SLOT(makeSection()));

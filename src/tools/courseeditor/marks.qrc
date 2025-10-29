@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>10.svg</file>
         <file>x.svg</file>
         <file>1.svg</file>
         <file>2.svg</file>
@@ -13,15 +12,16 @@
         <file>9.svg</file>
         <file>x.png</file>
         <file>10.png</file>
-        <file>2.png</file>
         <file>1.png</file>
+        <file>2.png</file>
         <file>7.png</file>
         <file>8.png</file>
         <file>9.png</file>
+        <file>10.svg</file>
         <file>arrow_up.svg</file>
+        <file>arrow_upDIS.svg</file>
         <file>arrow_down.svg</file>
         <file>arrow_downDIS.svg</file>
-        <file>arrow_upDIS.svg</file>
         <file>arrow_up.png</file>
         <file>arrow_down.png</file>
         <file>m.png</file>
