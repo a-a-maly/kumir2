@@ -5,7 +5,6 @@ void ControlInterface::start(QString csName)
 	CSname = csName;
 	w.setCS(CSName());
 	w.setup();
-	// w.show();
 }
 
 void ControlInterface::setCSmode(int mode)
@@ -19,7 +18,7 @@ void ControlInterface::setCSinterface(CSInterface *csInterface)
 	w.setInterface(csInterface);
 }
 
-QString ControlInterface::ispName()
+QString ControlInterface::ispName() const
 {
 	return "";
 }

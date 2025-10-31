@@ -55,9 +55,9 @@ public:
 	virtual void setWindowGeometry(QRect retc) = 0;
 	virtual void show() = 0;
 	virtual void checkFinished(int mark) = 0;
-	virtual KumZadanie *Task() = 0;
-	virtual QString Isp(int no) = 0;
-	virtual QString ispName() = 0;
+	virtual const KumZadanie *Task() const = 0;
+	virtual QString Isp(int no) const = 0;
+	virtual QString ispName() const = 0;
 };
 
 Q_DECLARE_INTERFACE(taskControlInterface, "kumir.taskControlInterface/1.7.1");

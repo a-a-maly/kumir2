@@ -25,26 +25,25 @@ public:
 
 	void checkFinished(int mark);
 
-	KumZadanie *Task()
+	const KumZadanie *Task() const
 	{
 		return &w.task;
 	}
 
-	QString Isp(int no)
+	QString Isp(int no) const
 	{
 		return w.task.Isp(no);
 	}
-	QString ispName();
 
-	QString CSName()
+	QString ispName() const;
+
+	QString CSName() const
 	{
 		return CSname;
 	}
 
-	MainWindowTask w;
-
 public:
-	class CSInterface  *Interface()
+	class CSInterface *Interface()
 	{
 		return csInterface;
 	}
@@ -53,5 +52,6 @@ private:
 	QString CSname;
 	class CSInterface *csInterface;
 	int Mark;
+	MainWindowTask w;
 };
 #endif // INTERFACE_H
