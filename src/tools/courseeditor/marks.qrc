@@ -1,31 +1,31 @@
 <RCC>
     <qresource prefix="/">
-        <file>x.svg</file>
-        <file>1.svg</file>
-        <file>2.svg</file>
-        <file>3.svg</file>
-        <file>4.svg</file>
-        <file>5.svg</file>
-        <file>6.svg</file>
-        <file>7.svg</file>
-        <file>8.svg</file>
-        <file>9.svg</file>
-        <file>x.png</file>
-        <file>10.png</file>
-        <file>1.png</file>
-        <file>2.png</file>
-        <file>7.png</file>
-        <file>8.png</file>
-        <file>9.png</file>
-        <file>10.svg</file>
-        <file>arrow_up.svg</file>
-        <file>arrow_upDIS.svg</file>
-        <file>arrow_down.svg</file>
-        <file>arrow_downDIS.svg</file>
-        <file>arrow_up.png</file>
-        <file>arrow_down.png</file>
-        <file>m.png</file>
-        <file>taskEdit.ico</file>
-        <file>folder.png</file>
+        <file alias="x.svg">images/x.svg</file>
+        <file alias="1.svg">images/1.svg</file>
+        <file alias="2.svg">images/2.svg</file>
+        <file alias="3.svg">images/3.svg</file>
+        <file alias="4.svg">images/4.svg</file>
+        <file alias="5.svg">images/5.svg</file>
+        <file alias="6.svg">images/6.svg</file>
+        <file alias="7.svg">images/7.svg</file>
+        <file alias="8.svg">images/8.svg</file>
+        <file alias="9.svg">images/9.svg</file>
+        <file alias="10.svg">images/10.svg</file>
+        <file alias="x.png">images/x.png</file>
+        <file alias="1.png">images/1.png</file>
+        <file alias="2.png">images/2.png</file>
+        <file alias="7.png">images/7.png</file>
+        <file alias="8.png">images/8.png</file>
+        <file alias="9.png">images/9.png</file>
+        <file alias="10.png">images/10.png</file>
+        <file alias="arrow_up.svg">images/arrow_up.svg</file>
+        <file alias="arrow_upDIS.svg">images/arrow_upDIS.svg</file>
+        <file alias="arrow_down.svg">images/arrow_down.svg</file>
+        <file alias="arrow_downDIS.svg">images/arrow_downDIS.svg</file>
+        <file alias="arrow_up.png">images/arrow_up.png</file>
+        <file alias="arrow_down.png">images/arrow_down.png</file>
+        <file alias="m.png">images/m.png</file>
+        <file alias="folder.png">images/folder.png</file>
+        <file alias="taskEdit.ico">images/taskEdit.ico</file>
     </qresource>
 </RCC>
