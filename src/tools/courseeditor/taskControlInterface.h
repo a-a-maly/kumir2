@@ -2,6 +2,7 @@
 #define TASKCONTROLINTERFACE_H
 
 #include <QtPlugin>
+#include <QRect>
 
 class CSInterface;
 class KumZadanie;

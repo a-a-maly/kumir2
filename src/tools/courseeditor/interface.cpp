@@ -1,6 +1,7 @@
 #include "interface.h"
 #include "kumzadanie.h"
 #include "mainwindow.h"
+#include <QDebug>
 
 ControlInterface::ControlInterface() :
 	csName(),
