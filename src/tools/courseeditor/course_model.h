@@ -12,19 +12,13 @@
 class KumTask
 {
 public:
-	KumTask(int id, QString title, QString desc, int chapter_id)
+	KumTask(int id, QString title, QString desc = QString(), int chapter_id = 0)
 	{
 		Id = id;
 		Title = title;
 		Desc = desc;
 		Chapter_id = chapter_id;
 
-	}
-
-	KumTask(int id, QString title)
-	{
-		Id = id;
-		Title = title;
 	}
 
 	int getId() const
@@ -37,32 +31,32 @@ public:
 		return Title;
 	}
 
-	QStringList getIsps()
+	QStringList getIsps() const
 	{
 		return ispsNeeded;
 	}
 
-	QStringList getEnvFiles()
+	QStringList getEnvFiles() const
 	{
 		return envFiles;
 	}
 
-	int Chapter()
+	int Chapter() const 
 	{
 		return Chapter_id;
 	}
 
-	QString Description()
+	QString Description() const
 	{
 		return Desc;
 	}
 
-	void appendEnvFile(const QString envFile)
+	void appendEnvFile(const QString &envFile)
 	{
 		envFiles.append(envFile);
 	}
 
-	int next()
+	int next() const
 	{
 		return nextId;
 	}
@@ -77,7 +71,7 @@ public:
 		subTasks.append(task);
 	}
 
-	int subTasksCount()
+	int subTasksCount() const
 	{
 		return subTasks.count();
 	}

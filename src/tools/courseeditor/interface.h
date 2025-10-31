@@ -1,7 +1,9 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include "mainwindow.h"
+#include "taskControlInterface.h"
+class MainWindowTask;
+class CSInterface;
 
 class ControlInterface: public QObject, public  taskControlInterface
 {
@@ -9,49 +11,22 @@ class ControlInterface: public QObject, public  taskControlInterface
 	Q_INTERFACES(taskControlInterface)
 
 public:
+	ControlInterface();
+	virtual ~ControlInterface();
+
 	void start(QString csName);
 	void setCSmode(int mode);
-	void setCSinterface(class CSInterface *csInterface);
-
-	void setWindowGeometry(QRect rect)
-	{
-		w.setGeometry(rect);
-	}
-
-	void show()
-	{
-		w.showNormal();
-	}
-
+	void setCSinterface(CSInterface *csInterface);
+	void setWindowGeometry(QRect rect);
+	void show();
 	void checkFinished(int mark);
-
-	const KumZadanie *Task() const
-	{
-		return &w.task;
-	}
-
-	QString Isp(int no) const
-	{
-		return w.task.Isp(no);
-	}
-
+	const KumZadanie *Task() const;
+	QString Isp(int no) const;
 	QString ispName() const;
 
-	QString CSName() const
-	{
-		return CSname;
-	}
-
-public:
-	class CSInterface *Interface()
-	{
-		return csInterface;
-	}
-
 private:
-	QString CSname;
-	class CSInterface *csInterface;
-	int Mark;
-	MainWindowTask w;
+	QString csName;
+	CSInterface *csInterface;
+	MainWindowTask *w;
 };
 #endif // INTERFACE_H

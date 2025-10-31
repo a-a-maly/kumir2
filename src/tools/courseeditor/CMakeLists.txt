@@ -4,6 +4,7 @@ project(kumir2-courseeditor)
 kumir2_use_qt(Core Gui Xml Svg)
 
 set(HEADERS
+	kumzadanie.h
 	course_model.h
 	csInterface.h
 	editdialog.h

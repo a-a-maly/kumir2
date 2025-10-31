@@ -24,8 +24,10 @@
 class QSettings;
 class QLineEdit;
 
-#include "course_model.h"
-#include "taskControlInterface.h"
+class courseModel;
+class courseChanges;
+
+class KumZadanie;
 class EditDialog;
 class newKursDialog;
 
@@ -54,6 +56,7 @@ public:
 
 	void setup();
 	QString getFileName(QString fileName);
+	const KumZadanie *get_task() const { return task; }
 
 public slots:
 	void aboutToQuit();
@@ -105,7 +108,6 @@ protected:
 private:
 	//Поиск id среди списка индексов
 	bool checkInList(int id, QModelIndexList list) const;
-
 	void enableMkSect(bool flag);
 	void markProgChange();
 	void lockKursFile(const QString fileName);
@@ -126,7 +128,6 @@ private:
 	CSInterface *_interface;
 	QString CS;
 	bool onTask;
-	courseChanges changes;
 	QString cursFile;
 	QList<int> progChange;
 	QFile cursWorkFile; //.work.xml
@@ -140,9 +141,8 @@ private:
 	bool changed;
 	QStringList lastFiles;
 	QFile lockFile; //Lock main xml file
-
- public: // ???
-	KumZadanie task;
+	KumZadanie *task;
+	courseChanges *changes;
 };
 
 #endif // MAINWINDOW_H

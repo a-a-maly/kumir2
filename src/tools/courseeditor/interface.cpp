@@ -1,10 +1,26 @@
 #include "interface.h"
+#include "kumzadanie.h"
+#include "mainwindow.h"
 
-void ControlInterface::start(QString csName)
+ControlInterface::ControlInterface() :
+	csName(),
+	csInterface(0),
+	w(new MainWindowTask())
 {
-	CSname = csName;
-	w.setCS(CSName());
-	w.setup();
+}
+
+ControlInterface::~ControlInterface()
+{
+	delete w;
+	w = 0;
+}
+
+
+void ControlInterface::start(QString _csName)
+{
+	csName = _csName;
+	w->setCS(csName);
+	w->setup();
 }
 
 void ControlInterface::setCSmode(int mode)
@@ -15,7 +31,7 @@ void ControlInterface::setCSmode(int mode)
 void ControlInterface::setCSinterface(CSInterface *csInterface)
 {
 	this->csInterface = csInterface;
-	w.setInterface(csInterface);
+	w->setInterface(csInterface);
 }
 
 QString ControlInterface::ispName() const
@@ -23,9 +39,28 @@ QString ControlInterface::ispName() const
 	return "";
 }
 
+void ControlInterface::setWindowGeometry(QRect rect)
+{
+	w->setGeometry(rect);
+}
+
+void ControlInterface::show()
+{
+	w->showNormal();
+}
+
+const KumZadanie *ControlInterface::Task() const
+{
+	return w->get_task();
+}
+
+QString ControlInterface::Isp(int no) const
+{
+	return w->get_task()->Isp(no);
+}
+
 void ControlInterface::checkFinished(int mark)
 {
-	Mark = mark;
 	qDebug() << "Get Mark" << mark;
 	qDebug() << " ControlInterface::checkFinished calls duumy w.setMark(mark)";
 	//w.setMark(mark);
