@@ -53,11 +53,6 @@ add_custom_command(
 	"--out=${CMAKE_BINARY_DIR}/${KUMIR2_RESOURCES_DIR}/kumiranalizer/messages.csv"
 	"${CMAKE_CURRENT_SOURCE_DIR}"
 	"${CMAKE_SOURCE_DIR}/share/kumir2/kumiranalizer"
-	DEPENDS
-	${SOURCES}
-	"${CMAKE_SOURCE_DIR}/src/kumir2-libs/errormessages/scanmessages.py"
-	"${CMAKE_SOURCE_DIR}/share/kumir2/kumiranalizer/*.rules"
-	"${CMAKE_SOURCE_DIR}/share/kumir2/kumiranalizer/messages.csv"
 )
 
 file(
