@@ -5,6 +5,7 @@ set(KUMIR2_EXEC_DIR "bin")                                  # executable binarie
 set(KUMIR2_LIBS_DIR "bin")                                  # common DLL's
 set(KUMIR2_PLUGINS_DIR "lib/kumir2/plugins")                # libraries to be load at run time
 set(KUMIR2_RESOURCES_DIR "share/kumir2")                    # non-executable resources
+set(KUMIR2_XDG_APPLICATIONS_DIR "share/applications")       # X applications catalog for kumir2-open
 set(KUMIR2_LIBEXECS_DIR "bin")                              # executable supplementary binaries
 
 if(NOT DEFINED KUMIR2_SDK_SCRIPTS_DIR)
