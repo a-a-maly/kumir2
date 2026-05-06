@@ -213,7 +213,8 @@ void Vodoley::reset()
 	mutex.tryLock(30);
 	setBaseFill(Afill, Bfill, Cfill);
 	mutex.unlock();
-	updateMenzur();
+	//updateMenzur();
+	redraw();
 }
 
 
@@ -223,6 +224,7 @@ void Vodoley::FillA()
 	Curfill[0] = Asize();
 	mutex.unlock();
 	// updateMenzur();
+	redraw();
 }
 
 void Vodoley::FillB()
@@ -231,6 +233,7 @@ void Vodoley::FillB()
 	Curfill[1] = Bsize();
 	mutex.unlock();
 	// updateMenzur();
+	redraw();
 }
 
 void Vodoley::FillC()
@@ -239,6 +242,7 @@ void Vodoley::FillC()
 	Curfill[2] = Csize();
 	mutex.unlock();
 	//updateMenzur();
+	redraw();
 }
 
 
@@ -248,7 +252,8 @@ void Vodoley::MoveFromTo(uint from, uint to)
 	if (to > 2) {
 		Curfill[from] = 0;
 		mutex.unlock();
-		updateMenzur();
+		//updateMenzur();
+		redraw();
 		return;
 	};//Выливаем
 	int svobodno = Maxfill[to] - Curfill[to];
@@ -264,6 +269,7 @@ void Vodoley::MoveFromTo(uint from, uint to)
 	}
 	mutex.unlock();
 	// updateMenzur();
+	redraw();
 	QApplication::processEvents();
 
 }
@@ -301,7 +307,8 @@ void Vodoley::newZ()
 	Cfill = newZdialog->CFill();
 
 	delete newZdialog;
-	updateMenzur();
+	//updateMenzur();
+	redraw();
 	setWindowTitle(QString::fromUtf8("Водолей - новое"));
 }
 
