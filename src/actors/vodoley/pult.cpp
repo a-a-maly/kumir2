@@ -546,10 +546,7 @@ void VodoleyPult::clientDisconnect()
 
 void VodoleyPult::logToKumir()
 {
-	QClipboard *clipboard = QApplication::clipboard();
-	QString originalText = clipboard->text();
-
-	clipboard->setText(Logger->log());
+	Logger->CopyLog();
 }
 
 
