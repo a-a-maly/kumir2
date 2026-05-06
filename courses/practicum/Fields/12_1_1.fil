@@ -3,7 +3,7 @@
 ; Robot position: x, y
 0 0
 ; A set of special Fields: x, y, Wall, Color, Radiation, Temperature, Symbol, Symbol1, Point
-0 0 0 0 0.000000 0.000000 1 $ 
+0 0 0 0 0.000000 0.000000 1 А 
 1 0 0 0 0.000000 0.000000 2 $ 
 2 0 0 0 0.000000 0.000000 3 $ 1
 3 0 0 0 0.000000 0.000000 4 $ 1
