@@ -1,10 +1,10 @@
 Kumir 2.x programming system
-============================
+=============================================
 
 ***NOTE*** Maintainers from AltLinux please read this: [MAINTAINERS_ru.md](MAINTAINERS_ru.md) (in Russian).
 
 Branches and tags
------------------
+---------------------------------------------
 
 Branch `master` contains Russian Algorithmic language implementation and all 
 system modules, even not included in release.
@@ -15,7 +15,7 @@ Releases are maked by tags and lists of excluded modules.
 Run `remove-unstable-modules-v.X.X.X.sh` before bundling source package.
 
 Build requirements (Linux)
---------------------------
+---------------------------------------------
 
 1. CMake version at least 2.8.11
 2. Python interpreter version at least 2.7.0
@@ -25,11 +25,11 @@ Build requirements (Linux)
 this repository, but you can use your distribution provided package by 
 deleting `src/3rdparty/boost-1.54.0`
 6. LLVM development files version at least 3.4 are optional to build native code
-generation feauture
+generation feature
 7. Python development files at least 3.2 in case of building branch `python`
 
 Build requirements (Windows)
-----------------------------
+---------------------------------------------
 
 1. CMake version 2.8.11. There is known regression in version 2.8.12, so do
 not use it
@@ -75,14 +75,14 @@ In order to provide custom prefix, you can pass option
 `-DCMAKE_INSTALL_PREFIX=` to cmake.
 
 Build instructions (Windows)
-----------------------------
+---------------------------------------------
 
 Meet all requirements and ensure that `qmake.exe`, `cmake.exe` and `python.exe`
 are present in system `PATH` environment variable. Also ensure `QTDIR` and
 `QMAKESPEC` environment variables are set to match your Qt and compiler
 toolchain installation.
 
-Start Microsoft Visual Stido Tools console.
+Start Microsoft Visual Studio Tools console.
 
 Within the console create subdirectory `build` of project root, walk there and
 run:
@@ -106,7 +106,7 @@ paths to prebuild LLVM root directory, `include` subdirectory and
 bundled boost first
 
 Deployment 3-rd party libraries (Windows)
------------------------------------------
+---------------------------------------------
 
 The following files must be copied into `bin` build subdirectory:
 ```
