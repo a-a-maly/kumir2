@@ -53,7 +53,7 @@ bool Utils::isRussianLayout()
 			names = names[2].split(",");
 		}
 		XFree(prop_data);
-		keybLang = names[xkbState.group];
+		keybLang = names.value(xkbState.group);
 		result = keybLang.contains("ru");
 	}
 #endif
