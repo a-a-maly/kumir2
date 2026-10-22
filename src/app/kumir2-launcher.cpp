@@ -433,6 +433,24 @@ setup_custom_vendor_information()
 }
 
 
+static QDateTime parse_git_timestamp(const QString &value)
+{
+	QString v = value.trimmed();
+	if (v.length() == 8) {
+		QDate date = QDate::fromString(v, "yyyyMMdd");
+		if (date.isValid()) {
+			return QDateTime(date, QTime(0, 0));
+		}
+	}
+	bool ok = false;
+	uint seconds = v.toUInt(&ok);
+	if (!ok || seconds == 0) {
+		return QDateTime();
+	}
+	return QDateTime::fromTime_t(seconds);
+}
+
+
 int main(int argc, char **argv)
 {
 	guiMode = false;
@@ -477,11 +495,13 @@ int main(int argc, char **argv)
 	QString gitHash = QString::fromLatin1(GIT_HASH);
 	QString gitTag = QString::fromLatin1(GIT_TAG);
 	QString gitBranch = QString::fromLatin1(GIT_BRANCH);
-	QDateTime gitTimeStamp = QDateTime::fromTime_t(QString::fromLatin1(GIT_TIMESTAMP).toUInt());
+	QDateTime gitTimeStamp = parse_git_timestamp(QString::fromLatin1(GIT_TIMESTAMP));
 
 	qApp->setApplicationVersion(gitTag.length() > 0 && gitTag != "unknown"
 		? gitTag : gitBranch + "/" + gitHash);
-	qApp->setProperty("gitTimeStamp", gitTimeStamp);
+	if (gitTimeStamp.isValid()) {
+		qApp->setProperty("gitTimeStamp", gitTimeStamp);
+	}
 
 	bool customInfo = setup_custom_vendor_information();
 	Q_UNUSED(customInfo);
