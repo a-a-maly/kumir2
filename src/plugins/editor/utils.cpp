@@ -20,6 +20,71 @@
 namespace Editor
 {
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+static Display *x11Display()
+{
+#if QT_VERSION >= 0x050200
+	if (!QX11Info::isPlatformX11()) {
+		return 0;
+	}
+#endif
+	return QX11Info::display();
+}
+
+#if QT_VERSION >= 0x050000
+static QString x11LayoutName(Display *d)
+{
+	XkbStateRec xkbState;
+	if (XkbGetState(d, XkbUseCoreKbd, &xkbState) != Success) {
+		return QString();
+	}
+	int group = xkbState.group;
+
+	// solution found at: http://www.linux.org.ru/forum/development/12852504
+	Atom real_prop_type = None;
+	int fmt = 0;
+	unsigned long nitems = 0, extra_bytes = 0;
+	unsigned char *prop_data = NULL;
+	Atom rules_atom = XInternAtom(d, "_XKB_RULES_NAMES", False);
+	int status = XGetWindowProperty(d, DefaultRootWindow(d), rules_atom, 0L, 1024,
+		False, XA_STRING, &real_prop_type, &fmt, &nitems, &extra_bytes, &prop_data);
+	QStringList names;
+	if (status == Success && prop_data && real_prop_type == XA_STRING && fmt == 8) {
+		const char *data = (const char *) prop_data;
+		for (const char *p = data; p - data < (long)nitems; p += strlen(p) + 1) {
+			names.append(QString::fromLatin1(p));
+		}
+	}
+	if (prop_data) {
+		XFree(prop_data);
+	}
+	if (names.count() > 2) {
+		QStringList layouts = names[2].split(",");
+		if (group < layouts.count()) {
+			return layouts[group];
+		}
+	}
+
+	QString result;
+	XkbDescPtr desc = XkbAllocKeyboard();
+	if (!desc) {
+		return result;
+	}
+	if (XkbGetNames(d, XkbGroupNamesMask, desc) == Success && desc->names
+		&& group < XkbNumKbdGroups && desc->names->groups[group] != None
+	) {
+		char *name = XGetAtomName(d, desc->names->groups[group]);
+		if (name) {
+			result = QString::fromLatin1(name);
+			XFree(name);
+		}
+	}
+	XkbFreeKeyboard(desc, 0, True);
+	return result;
+}
+#endif
+#endif // X11
+
 bool Utils::isRussianLayout()
 {
 	bool result = false;
@@ -31,30 +96,12 @@ bool Utils::isRussianLayout()
 #else
 	// Qt5 implementation
 	QInputMethod *inputMethod = QApplication::inputMethod();
-	QString keybLang = inputMethod->locale().name();
+	QString keybLang = inputMethod ? inputMethod->locale().name() : QString();
 	result = keybLang.contains("ru");
-	Display *d = QX11Info::display();
-	if (d && !result) {  // Might be variant of main input method
-		// solution found at: http://www.linux.org.ru/forum/development/12852504
-		XkbStateRec xkbState;
-		XkbGetState(d, XkbUseCoreKbd, &xkbState);
-		Atom real_prop_type;
-		int fmt;
-		unsigned long nitems, extra_bytes;
-		char *prop_data = NULL;
-		Atom rules_atom = XInternAtom(d, "_XKB_RULES_NAMES", False);
-		XGetWindowProperty(d, DefaultRootWindow(d), rules_atom, 0L, 1024,
-			False, XA_STRING, &real_prop_type, &fmt, &nitems, &extra_bytes, (unsigned char **)(void *) &prop_data);
-		QStringList names;
-		for (char *p = prop_data; p - prop_data < (long)nitems && p != NULL; p += strlen(p) + 1) {
-			names.append(p);
-		}
-		if (names.count() > 3) {
-			names = names[2].split(",");
-		}
-		XFree(prop_data);
-		keybLang = names[xkbState.group];
-		result = keybLang.contains("ru");
+	Display *d = x11Display();
+	if (d && !result) {
+		keybLang = x11LayoutName(d);
+		result = keybLang.contains("ru") || keybLang.contains("Russian");
 	}
 #endif
 #endif // X11
@@ -73,11 +120,12 @@ bool Utils::isCapsLock()
 {
 	bool result = false;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-	Display *d = QX11Info::display();
+	Display *d = x11Display();
 	if (d) {
-		unsigned n;
-		XkbGetIndicatorState(d, XkbUseCoreKbd, &n);
-		result = (n & 0x01) == 1;
+		unsigned n = 0;
+		if (XkbGetIndicatorState(d, XkbUseCoreKbd, &n) == Success) {
+			result = (n & 0x01) == 1;
+		}
 	}
 #endif
 #ifdef Q_OS_WIN32
