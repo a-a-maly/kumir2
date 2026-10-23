@@ -47,6 +47,8 @@ DrawModule::DrawModule(ExtensionSystem::KPlugin *parent)
 {
 	CurView = 0;
 	firstShow = true;
+	autoFit = true;
+	fitPending = false;
 	curPos = QPointF(0, 0);
 	penIsDrawing = false;
 	penColor = QColor(0, 0, 0, 255);
@@ -214,12 +216,19 @@ void DrawModule::showNavigator(bool state)
 	*/
 	// TODO implement me
 	using namespace ExtensionSystem;  // not to write "ExtensionSystem::" each time in this method scope
-	Q_UNUSED(old);  // Remove this line on implementation
-	Q_UNUSED(current);  // Remove this line on implementation
 	updateDraw();
 	redraw();
 	currentState = current;
 	CurView->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+	const bool programFinished = old == GlobalState::GS_Running
+		&& (current == GlobalState::GS_Observe || current == GlobalState::GS_Unlocked);
+	if (programFinished && autoFit) {
+		if (CurView->viewport()->size().isEmpty()) {
+			fitPending = true;
+		} else {
+			zoomFullDraw();
+		}
+	}
 	// if(current==GlobalState::GS_Running)
 	// {
 	//  redrawTimer->start(500);
@@ -414,6 +423,7 @@ void DrawModule::drawNet()
 
 void DrawModule::zoomIn()
 {
+	autoFit = false;
 	CurView->setZoom(CurView->zoom() * 2);
 	scalePen(Pen()->scale() * (0.5));
 	CurView->setNet();
@@ -421,6 +431,7 @@ void DrawModule::zoomIn()
 };
 void DrawModule::zoomOut()
 {
+	autoFit = false;
 	CurView->setZoom(CurView->zoom() * 0.5);
 	scalePen(Pen()->scale() * (2));
 	CurView->setNet();
@@ -428,6 +439,7 @@ void DrawModule::zoomOut()
 };
 void DrawModule::zoomNorm()
 {
+	autoFit = false;
 
 
 	CurView->setZoom(KUM_MULTI);
@@ -445,66 +457,46 @@ void DrawModule::zoomNorm()
 
 };
 
+void DrawModule::showInitialView()
+{
+	if (fitPending) {
+		zoomFullDraw();
+	} else {
+		fitView(QRectF(-5, -5, 10, 10), QSizeF(0, 0));
+	}
+}
+
 void DrawModule::zoomFullDraw()
 {
+	mutex.lock();
+	QRectF drawRect = CurScene->getRect();
+	drawRect |= QRectF(mPen->pos() - QPointF(0.5, 0.5), QSizeF(1, 1));
+	const QSizeF penPixels = mPen->sceneBoundingRect().size() * CurView->zoom();
+	mutex.unlock();
+	fitView(drawRect, penPixels);
+	fitPending = false;
+	autoFit = true;
+}
 
-	QPointF start_d = CurView->mapToScene(CurView->geometry().topLeft());
-	QPointF end_d = CurView->mapToScene(CurView->geometry().bottomRight());
-	qreal width = end_d.x() - start_d.x();
-	qreal heigth = end_d.y() - start_d.y();
-	qreal size = qMax(width, heigth);
-	QRectF sceneInfoRect = CurScene->getRect(); //Get user lines bounding rect from scene
-
-	//sceneInfoRect.setY(-sceneInfoRect.y());//Convert to Kumir Coordinates
-
-	qDebug() << "SceneInfoRect:" << sceneInfoRect << "L" << sceneInfoRect.left() << "R" << sceneInfoRect.right() << "t" << sceneInfoRect.top() << "B" << sceneInfoRect.bottom() << "MaxSize" << qMax(sceneInfoRect.height(), sceneInfoRect.width()) << "Center" << sceneInfoRect.center();;
-	//sceneInfoRect.setY(-sceneInfoRect.y());//Convert to Kumir Coordinates
-
-	//  CurView->setSceneRect(QRectF(QPointF(sceneInfoRect.x()-(CurView->geometry().width())*(1/zoom()),sceneInfoRect.y()-(CurView->geometry().height()*2)*(1/zoom())),
-	//                              QPointF(sceneInfoRect.x()+1000*(1/zoom()),sceneInfoRect.y()+1000*(1/zoom()))));
-
-	QPointF cnt = sceneInfoRect.center();
-	qreal size2 = qMax(sceneInfoRect.height(), sceneInfoRect.width());
+void DrawModule::fitView(const QRectF &rect, const QSizeF &marginPixels)
+{
+	const QSize viewSize = CurView->viewport()->size();
+	if (viewSize.isEmpty()) {
+		return;
+	}
+	const qreal fitWidth = qMax(viewSize.width() - 2 * marginPixels.width(), viewSize.width() / 2.0);
+	const qreal fitHeight = qMax(viewSize.height() - 2 * marginPixels.height(), viewSize.height() / 2.0);
 	qreal oldZoom = CurView->zoom();
-	qreal newZoom = (CurView->zoom() * (size / size2)) * 0.43; //Some magic
-	qDebug() << "NZ" << newZoom;
-	CurView->setZoom(newZoom / 2);
-	sceneInfoRect.moveCenter(cnt);//convert to scene coord
-	CurView->setSceneRect(sceneInfoRect);
-	qDebug() << "PenScale" << Pen()->scale() << "ZoomMP" << oldZoom / newZoom;
-
-
-	// CurView->centerOn(0,0);
-	start_d = CurView->sceneRect().topLeft();
-	end_d = CurView->sceneRect().bottomRight();
-	QRectF viewRect(start_d, end_d);
-
-
-	cnt = sceneInfoRect.center();
-
-	qDebug() << "realCenter2 correction" << viewRect.center();
-	qDebug() << "Need Center" << sceneInfoRect.center();
-	qDebug() << "Dist" << (QVector2D(sceneInfoRect.center()) - QVector2D(viewRect.center())).length();
-	QVector2D offScene(QVector2D(CurView->mapFromScene(sceneInfoRect.center())) - QVector2D(CurView->mapFromScene(viewRect.center())));
-	qDebug() << "CurCenter" << CurView->sceneRect().center() << "Y off scene offset" << offScene.toPoint().y() << "Scbar" << CurView->verticalScrollBar()->value();
-	// CurView->verticalScrollBar()->setValue(CurView->verticalScrollBar()->value()+offScene.toPoint().y());
-	// CurView->horizontalScrollBar()->setValue(CurView->horizontalScrollBar()->value());
-
-
-	CurView->centerOn(sceneInfoRect.center());
-	CurView->setZoom(newZoom);
+	CurView->setZoom(0.9 * qMin(fitWidth / rect.width(), fitHeight / rect.height()));
 	CurView->setNet();
+	qreal marginX = viewSize.width() / CurView->zoom();
+	qreal marginY = viewSize.height() / CurView->zoom();
+	CurView->setSceneRect(CurView->sceneRect() | rect.adjusted(-marginX, -marginY, marginX, marginY));
+	CurView->centerOn(rect.center());
 	drawNet();
-	CurView->centerOn(sceneInfoRect.center());
-	CurView->update();
-	CurView->forceRedraw();
-	start_d = CurView->sceneRect().topLeft();
-	end_d = CurView->sceneRect().bottomRight();
-	viewRect = QRectF(start_d, end_d);
-
-
-	// }
-	scalePen(Pen()->scale() * (oldZoom / newZoom));
+	CurView->centerOn(rect.center());
+	scalePen(Pen()->scale() * (oldZoom / CurView->zoom()));
+	qDebug() << "fitView" << rect << "viewport" << viewSize << "zoom" << CurView->zoom();
 	navigator->updateSelf(NetStepX(), NetStepY());
 	CurView->update();
 	CurView->forceRedraw();
