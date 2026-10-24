@@ -75,9 +75,16 @@ public:
 		update();
 	}
 
+	void setColor(const QColor &color)
+	{
+		Color = color;
+		update();
+	}
+
 private:
 	int St, Fn;
 	int Intens;
+	QColor Color;
 };
 
 //_____________________________________________________
@@ -177,6 +184,8 @@ public:
 	{
 		Reset();
 	}
+
+	void setColors(const QColor &back, const QColor &ruler, const QColor &kuznec, const QColor &track);
 
 	void ClearSledi()
 	{
@@ -485,6 +494,10 @@ private:
 	int NLastVec;
 	LColor CurColor;
 	QString CurColorName;
+	QColor BackColor;
+	QColor RulerColor;
+	QColor KuznecColor;
+	QColor TrackColor;
 	double CurX;
 	double CurY;
 	double CurZ;

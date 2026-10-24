@@ -50,6 +50,7 @@ void GrasshopperModule::createGui()
 	connect(m_actionGrasshopperNewEnvironment, SIGNAL(triggered()), kuznec, SLOT(ClearPicture()));
 	connect(m_actionGrasshopperLoadEnvironment, SIGNAL(triggered()), kuznec, SLOT(LoadFromFileActivated()));
 	connect(m_actionGrasshopperSave, SIGNAL(triggered()), kuznec, SLOT(SaveToFileActivated()));
+	reloadSettings(mySettings(), QStringList());
 }
 
 QString GrasshopperModule::initialize(const QStringList &configurationParameters, const ExtensionSystem::CommandLine &)
@@ -140,9 +141,16 @@ void GrasshopperModule::jumpsChanged()
 {
 	// Updates setting on module load, workspace change or appliyng settings dialog.
 	// If @param keys is empty -- should reload all settings, otherwise load only setting specified by @param keys
-	// TODO implement me
-	Q_UNUSED(settings);  // Remove this line on implementation
-	Q_UNUSED(keys);  // Remove this line on implementation
+	Q_UNUSED(keys);
+	if (!kuznec) {
+		return;
+	}
+	kuznec->setColors(
+		QColor(settings->value("Colors/Background", "#90ee90").toString()),
+		QColor(settings->value("Colors/Ruler", "#0000ff").toString()),
+		QColor(settings->value("Colors/Grasshopper", "#0000ff").toString()),
+		QColor(settings->value("Colors/Track", "#000000").toString())
+	);
 }
 
 /* public slot */ void GrasshopperModule::reset()

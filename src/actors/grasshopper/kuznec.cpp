@@ -33,6 +33,11 @@
 #include <QFileDialog>
 #include <math.h>
 
+static QColor contrastColor(const QColor &back)
+{
+	return qGray(back.rgb()) <= 127 ? Qt::white : Qt::black;
+}
+
 
 void DrawView:: scrollContentsBy(int dx, int dy)
 {
@@ -114,6 +119,7 @@ KuznSled::KuznSled(int start, int fin)
 	St = start;
 	Fn = fin;
 	Intens = 0;
+	Color = Qt::black;
 }
 
 void KuznSled::paint(
@@ -121,9 +127,13 @@ void KuznSled::paint(
 	const QStyleOptionGraphicsItem *option,
 	QWidget *widget
 ) {
-	QPen black(QColor(Intens, Intens, Intens));
+	QColor color(
+		Color.red() + (255 - Color.red()) * Intens / 255,
+		Color.green() + (255 - Color.green()) * Intens / 255,
+		Color.blue() + (255 - Color.blue()) * Intens / 255
+	);
 	qDebug() << "ABS " << abs(Fn - St);
-	painter->setPen(black);
+	painter->setPen(QPen(color));
 	painter->drawArc(St, 0, Fn, 32, 0, 360 * 8);
 	//qDebug()<<"SLED PAINT";
 }
@@ -168,6 +178,10 @@ void KumKuznec::resizeEvent(QResizeEvent *event)
 KumKuznec::KumKuznec(const QDir &mresd)
 {
 	autoClose = false;
+	BackColor = QColor("lightgreen");
+	RulerColor = QColor("blue");
+	KuznecColor = QColor("blue");
+	TrackColor = QColor("black");
 #if QT_VERSION >= 0x050000
 	curDir = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first();
 #else
@@ -205,7 +219,7 @@ KumKuznec::KumKuznec(const QDir &mresd)
 	connect(scene, SIGNAL(MouseWheel(int)), this, SLOT(MouseWheel(int)));
 	this->setGeometry(MV->geometry());
 
-	scene->setBackgroundBrush(QBrush(QColor("lightgreen")));
+	scene->setBackgroundBrush(QBrush(BackColor));
 	StepX = 1.;
 	StepY = 1.;
 	SizeX = DEFAULT_SIZEX;
@@ -291,7 +305,7 @@ KumKuznec::KumKuznec(const QDir &mresd)
 
 	//Reset();
 	mPen->setPos(0, -0.25);
-	mPen->setBrush(QBrush(QColor("blue")));
+	mPen->setBrush(QBrush(KuznecColor));
 	scene->addItem(new QGraphicsLineItem(0, -ZOOMMULTIP * 2, 0, -ZOOMMULTIP * 2 + 0.0005));
 
 	fileName = "";
@@ -925,7 +939,7 @@ void KumKuznec::ClearPicture(void)
 	CurY = 0;
 	mPen->setPos(startPos * ZOOMMULTIP, 0);
 	CurX = ZOOMMULTIP * startPos;
-	mPen->setBrush(QBrush(QColor("blue")));
+	mPen->setBrush(QBrush(KuznecColor));
 	createFlags();
 	ClearSledi();
 	ClearZakr();
@@ -1077,23 +1091,23 @@ void KumKuznec::DrawNet()
 
 		Netlines.append(scene->addLine((fx1 - 0.2 * ZOOMMULTIP), 0.2 * ZOOMMULTIP, fx1 - 0.2 * ZOOMMULTIP, -0.2 * ZOOMMULTIP));
 		Netlines.last()->setZValue(0.5);
-		Netlines.last()->setPen(QPen(QColor("blue"))); // Левая вертикаль
+		Netlines.last()->setPen(QPen(RulerColor)); // Левая вертикаль
 
 		Netlines.append(scene->addLine((fx1 + 0.2 * ZOOMMULTIP), 0.2 * ZOOMMULTIP, fx1 + 0.2 * ZOOMMULTIP, -0.2 * ZOOMMULTIP));
 		Netlines.last()->setZValue(0.5);
-		Netlines.last()->setPen(QPen(QColor("blue")));//Правая вертикаль
+		Netlines.last()->setPen(QPen(RulerColor));//Правая вертикаль
 
 		Netlines.append(scene->addLine((fx1 - 0.2 * ZOOMMULTIP), -0.2 * ZOOMMULTIP, fx1 + 0.2 * ZOOMMULTIP, -0.2 * ZOOMMULTIP));
 		Netlines.last()->setZValue(0.5);
-		Netlines.last()->setPen(QPen(QColor("blue")));//верх
+		Netlines.last()->setPen(QPen(RulerColor));//верх
 
 		Netlines.append(scene->addLine((fx1 - 0.2 * ZOOMMULTIP), 0.2 * ZOOMMULTIP, fx1 + 0.2 * ZOOMMULTIP, 0.2 * ZOOMMULTIP));
 		Netlines.last()->setZValue(0.5);
-		Netlines.last()->setPen(QPen(QColor("blue")));//Низ
+		Netlines.last()->setPen(QPen(RulerColor));//Низ
 
 		Netlines.append(scene->addLine((fx1 + 0.2 * ZOOMMULTIP), 0, fx2 - 0.2 * ZOOMMULTIP, 0));
 		Netlines.last()->setZValue(0.5);
-		Netlines.last()->setPen(QPen(QColor("blue")));//соединялка
+		Netlines.last()->setPen(QPen(RulerColor));//соединялка
 
 		if ((borderEnable) && ((fx1 / ZOOMMULTIP == rightBorder) || (fx1 / ZOOMMULTIP == leftBorder))) {
 			qreal zdvig = Step / 2;
@@ -1107,6 +1121,7 @@ void KumKuznec::DrawNet()
 	}
 
 //Оси координат
+	QBrush textBrush(contrastColor(BackColor));
 	qreal textX, textY;
 	Q_UNUSED(textY);
 	textX = BegX;
@@ -1124,6 +1139,7 @@ void KumKuznec::DrawNet()
 		if (QString::number(textX / ZOOMMULTIP).length() > 2) {
 			zdvig = zdvig - 2;
 		}
+		NetText.last()->setBrush(textBrush);
 		NetText.last()->setPos(textX + zdvig, 0.2 * ZOOMMULTIP);
 		int Zoom = Step;
 
@@ -1633,6 +1649,7 @@ void KumKuznec::createFlags()
 		curFlag->flagItem->setScale(BASEZOOM * 2);
 		curFlag->flagItem->setZValue(99);
 		curFlag->flagItem->setBrush(QBrush(QColor(150, 100, 100)));
+		curFlag->flagItem->setPen(QPen(contrastColor(BackColor)));
 		curFlag->flagItem->setPos(curFlag->f_pos * ZOOMMULTIP, -ZOOMMULTIP);
 		flags.append(curFlag);
 		scene->addItem(curFlag->flagItem);
@@ -1675,6 +1692,7 @@ void KumKuznec::addSled(int start, int fin)
 	int delitel = sledi.count() + 1;
 	int step = maxColor / delitel;
 	sledi.append(new KuznSled(start, fin * ZOOMMULTIP));
+	sledi.last()->setColor(TrackColor);
 	scene->addItem(sledi.last());
 	sledi.last()->moveBy(0, -1.1 * ZOOMMULTIP);
 	sledi.last()->setZValue(1);
@@ -1685,6 +1703,26 @@ void KumKuznec::addSled(int start, int fin)
 		sledi[i]->setInt(maxColor - step * (i + 1));
 
 	};
+	scene->update();
+}
+
+void KumKuznec::setColors(const QColor &back, const QColor &ruler, const QColor &kuznec, const QColor &track)
+{
+	BackColor = back;
+	RulerColor = ruler;
+	KuznecColor = kuznec;
+	TrackColor = track;
+
+	scene->setBackgroundBrush(QBrush(BackColor));
+	DrawNet();
+	mPen->setBrush(QBrush(KuznecColor));
+	mPen->setPen(QPen(contrastColor(BackColor)));
+	for (int i = 0; i < flags.count(); ++i) {
+		flags[i]->flagItem->setPen(QPen(contrastColor(BackColor)));
+	}
+	for (int i = 0; i < sledi.count(); ++i) {
+		sledi[i]->setColor(TrackColor);
+	}
 	scene->update();
 }
 

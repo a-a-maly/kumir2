@@ -54,24 +54,24 @@
 
 	},
 	"settings": {
-		"BackgroundColor": {
+		"Colors/Background": {
 			"type": "color",
-			"default": "#green",
+			"default": "#90ee90",
 			"title": {"ascii": "Background Color", "ru_RU": "Цвет фона"}
 		},
-        "RulerColor": {
+        "Colors/Ruler": {
 			"type": "color",
-			"default": "#white",
+			"default": "#0000ff",
 			"title": {"ascii": "Ruler Color", "ru_RU": "Цвет линейки"}
 		},
-        "GrasshopperColor": {
+        "Colors/Grasshopper": {
 			"type": "color",
-			"default": "#white",
+			"default": "#0000ff",
 			"title": {"ascii": "Grasshopper Color", "ru_RU": "Цвет кузнечика"}
 		},
-        "TrackColor": {
+        "Colors/Track": {
 			"type": "color",
-			"default": "#gray",
+			"default": "#000000",
 			"title": {"ascii": "Track Color", "ru_RU": "Цвет следа"}
 		}
 	}
