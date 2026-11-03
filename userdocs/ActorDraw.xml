@@ -1,24 +1,55 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE book
-    PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-    "docbookV4.5/docbookx.dtd"
-    []
+	PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	"docbookV4.5/docbookx.dtd"
+	[]
 >
 <article>
-    <title>Исполнитель "Чертежник"</title>
-    <titleabbrev>Чертежник</titleabbrev>
-    <section id="общие сведения">
+	<title>Исполнитель "Чертежник"</title>
+	<titleabbrev>Чертежник</titleabbrev>
+	<section id="общие сведения">
 		<title>Использование исполнителя</title>
-		<para>Исполнитель "Чертежник" входит в Вашу поставку Кумир, но его функции не являются частью языка 
-		программирования. Для его использования необходимо в программе явно указать использование данного исполнителя: 
-		<programlisting role="кумир"><![CDATA[
+		<para>
+			Исполнитель "Чертежник" входит в Вашу поставку Кумир,
+			но его функции не являются частью языка программирования.
+			Для его использования необходимо в программе явно указать
+			использование данного исполнителя:
+			<programlisting role="кумир"><![CDATA[
 использовать Чертежник
-| теперь функции чертежника доступны
+| теперь функции Чертежника доступны
 | для использования в программе
 ]]>
-        </programlisting>
+			</programlisting>
+		</para>
+		<para>
+			При выполнении данной команды перо Чертежника поднимается,
+			устанавливается в точку с координатами <code role="кумир"> (0, 0) </code>
+			и выбираются чёрные чернила.
 		</para>
 	</section>
+
+	<section id="тип цвет" role="кумир">
+	<title>Тип величины "цвет"</title>
+		<para>
+			В исполнителе используется новый тип величин --<type>цвет</type>.
+			Значение величины типа <type>цвет</type> может быть получено
+			присваиванием величине одного из значений:
+			<code>прозрачный</code>,<code>белый</code>,<code>чёрный</code>,
+			<code>серый</code>,<code>фиолетовый</code>,<code>синий</code>,
+			<code>голубой</code>,<code>зелёный</code>,<code>жёлтый</code>,
+			<code>оранжевый</code>,<code>красный</code>.
+		</para>
+		<para>
+			Значение типа <type>цвет</type> записывается без кавычек,
+			вместо буквы <code>ё</code> можно использовать букву<code>е</code>.
+		</para>
+		<para>
+			Подробнее о типе <type>цвет</type> и дополнительных функциях для
+			работы с ним смотрите в справочном руководстве исполнителя "Рисователь".
+		</para>
+
+</section>
+
 	<section id="команды действий">
 		<title>Команды действий</title>
 		<section>
@@ -31,6 +62,7 @@
 			</funcsynopsis>
 			<para>Опускает перо. При дальнейшем перемещении будет оставаться след.</para>
 		</section>
+
 		<section>
 			<title>поднять перо</title>
 			<funcsynopsis role="кумир">
@@ -41,6 +73,7 @@
 			</funcsynopsis>
 			<para>Поднимает перо. При дальнейшем перемещении будет оставаться след.</para>
 		</section>
+
 		<section>
 			<title>выбрать чернила</title>
 			<funcsynopsis role="кумир">
@@ -55,8 +88,9 @@
 				<listitem><parameter>а</parameter> -- цвет чернил.</listitem>
 			</itemizedlist>
 		</section>
+
 		<section>
-			<title>сместиться в точку </title>
+			<title>сместиться в точку</title>
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo><package>Чертежник</package></funcsynopsisinfo>
 				<funcprototype>
@@ -71,8 +105,9 @@
 				<listitem><parameter>y</parameter> -- её ордината.</listitem>
 			</itemizedlist>
 		</section>
+
 		<section>
-			<title>сместиться на вектор  </title>
+			<title>сместиться на вектор</title>
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo><package>Чертежник</package></funcsynopsisinfo>
 				<funcprototype>
@@ -81,12 +116,15 @@
 					<paramdef>вещ <parameter>dy</parameter></paramdef>
 				</funcprototype>
 			</funcsynopsis>
-			<para>Смещает перо на вектор (<parameter>dx</parameter>, <parameter>dy</parameter>). 
-			Иными словами, если до выполнения команды перо находилось в точке <code role="кумир">(x, y)</code>, то 
-			после её выполнения, оно будет находиться в точке <code role="кумир">(x + dx, y + dy)</code>.</para>
+			<para>
+				Смещает перо на вектор (<parameter>dx</parameter>, <parameter>dy</parameter>).
+				Иными словами, если до выполнения команды перо находилось в точке <code role="кумир">(x, y)</code>,
+				то после её выполнения, оно будет находиться в точке <code role="кумир">(x + dx, y + dy)</code>.
+			</para>
 		</section>
+
 		<section>
-			<title>написать </title>
+			<title>написать</title>
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo><package>Чертежник</package></funcsynopsisinfo>
 				<funcprototype>
@@ -102,6 +140,7 @@
 			</itemizedlist>
 		</section>
 	</section>
+
 	<section id="алгоритмы контроля обстановки" configuration="teacher">
 		<title>Алгоритмы контроля обстановки</title>
 		<section>
@@ -123,4 +162,6 @@
 			</itemizedlist>
 		</section>
 	</section>
+
+	<para/>
 </article>

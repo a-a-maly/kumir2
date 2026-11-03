@@ -1,78 +1,77 @@
 ﻿<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-        "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
-        [
-                <!ENTITY % times SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent">
-                <!ENTITY % hellip SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent">
-                ]>
+	"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+	[
+		<!ENTITY % times SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent">
+		<!ENTITY % hellip SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent">
+	]>
 <article>
-    <title>Исполнитель "Рисователь"</title>
-    <titleabbrev>Рисователь</titleabbrev>
-    <abstract>
-        <para>
-            Рисователь -- исполнитель системы Кумир. Назначение Рисователя -- создавать
-            рисунки на листе. Как и другие исполнители, он имеет систему команд, свою
-            "обстановку" -- лист, на котором можно рисовать, и окно, в котором виден лист.
-        </para>
-        <para>
-            Исполнитель разработан по инициативе д.&nbsp;т.&nbsp;н. проф. К.&nbsp;Ю.&nbsp;Полякова,
-            спецификация исполнителя создана совместно группой разработки Кумир и К.&nbsp;Ю.&nbsp;
-            Поляковым.
-        </para>
-    </abstract>
-    <section id="общие сведения">
-        <title>Использование исполнителя</title>
-        <para>
-            Исполнитель "Рисователь" входит в Вашу поставку Кумир, но его функции не являются частью языка программирования.
-            Для его использования необходимо в программе явно указать использование данного исполнителя:
-            <programlisting role="кумир"><![CDATA[
+	<title>Исполнитель "Рисователь"</title>
+	<titleabbrev>Рисователь</titleabbrev>
+	<abstract>
+		<para>
+			Рисователь -- исполнитель системы Кумир. Назначение Рисователя -- создавать
+			рисунки на листе. Как и другие исполнители, он имеет систему команд, свою
+			"обстановку" -- лист, на котором можно рисовать, и окно, в котором виден лист.
+		</para>
+		<para>
+			Исполнитель разработан по инициативе д.&nbsp;т.&nbsp;н. проф. К.&nbsp;Ю.&nbsp;Полякова,
+			спецификация исполнителя создана совместно группой разработки Кумир и К.&nbsp;Ю.&nbsp;
+			Поляковым.
+		</para>
+	</abstract>
+	<section id="общие сведения">
+		<title>Использование исполнителя</title>
+		<para>
+			Исполнитель "Рисователь" входит в Вашу поставку Кумир,
+			но его функции не являются частью языка программирования.
+			Для его использования необходимо в программе явно указать
+			использование данного исполнителя:
+			<programlisting role="кумир"><![CDATA[
 использовать Рисователь
 | теперь функции рисователя доступны
 | для использования в программе
 ]]>
-            </programlisting>
-            <programlisting role="python"><![CDATA[
+			</programlisting>
+			<programlisting role="python"><![CDATA[
 import painter
 # функции доступны в виде 'painter.имя_функции'
 
 from painter import *
 # функции доступны в глобальном пространстве имен
 ]]>
-            </programlisting>
-        </para>
-    </section>
-    <section id="тип цвет" role="кумир">
-        <title>Тип величины "цвет"</title>
-        <para>В исполнителе реализован новый тип величин --<type>цвет</type>.
-            Значение величины типа
-            <type>цвет</type>
-            может быть получено:
-            <itemizedlist>
-                <listitem>
-                    <para>использованием одного из алгоритмов составления цвета из
-                        отдельных компонент;
-                    </para>
-                </listitem>
-                <listitem>
-                    <para>присваиванием величине одного из значений:
-                        <code>прозрачный</code>,<code>белый</code>,<code>чёрный</code>,
-                        <code>серый</code>,<code>фиолетовый</code>,<code>синий</code>,
-                        <code>голубой</code>,<code>зелёный</code>,<code>жёлтый</code>,
-                        <code>оранжевый</code>,<code>красный</code>.
-                    </para>
-                    <para>
-                        Значение типа
-                        <type>цвет</type>
-                        записывается без кавычек, вместо буквы
-                        <code>ё</code>
-                        можно использовать букву<code>е</code>.
-                    </para>
-                </listitem>
-            </itemizedlist>
-        </para>
-        <example>
-            <title>Рисователь рисует радугу</title>
-            <programlisting role="кумир"><![CDATA[
+			</programlisting>
+		</para>
+	</section>
+	<section id="тип цвет" role="кумир">
+		<title>Тип величины "цвет"</title>
+		<para>
+			В исполнителе реализован новый тип величин --<type>цвет</type>.
+			Значение величины типа <type>цвет</type> может быть получено:
+			<itemizedlist>
+				<listitem>
+					<para>использованием одного из алгоритмов составления цвета из
+						отдельных компонент;
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						присваиванием величине одного из значений:
+						<code>прозрачный</code>,<code>белый</code>,<code>чёрный</code>,
+						<code>серый</code>,<code>фиолетовый</code>,<code>синий</code>,
+						<code>голубой</code>,<code>зелёный</code>,<code>жёлтый</code>,
+						<code>оранжевый</code>,<code>красный</code>.
+					</para>
+					<para>
+						Значение типа <type>цвет</type> записывается без кавычек,
+						вместо буквы <code>ё</code> можно использовать букву<code>е</code>.
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<example>
+			<title>Рисователь рисует радугу</title>
+			<programlisting role="кумир"><![CDATA[
 использовать Рисователь
 алг радуга
 нач
@@ -95,678 +94,594 @@ from painter import *
   окружность(200, 200, 25)
 кон
 ]]>
-            </programlisting>
-        </example>
-    </section>
-    <section id="класс Color" role="python">
-        <title>Представление значения типа "цвет"</title>
-        <para>В исполнителе для представления цвета используется класс <type>Color</type>.
-            Значение величины типа
-            <type>Color</type>
-            может быть получено использованием одного из алгоритмов составления цвета из
-                        отдельных компонент.
-         </para>
-    </section>
-    <section id="Алгоритмы для работы с цветом">
-        <title>Алгоритмы для работы с цветом</title>
-        <para></para>
-        <section id="CMYK">
-            <title>CMYK</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>CMYK</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>c</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>m</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>y</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>k</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <funcsynopsis role="python">
-                <funcsynopsisinfo>
-                    <package>painter</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>def
-                        <function>CMYK</function>
-                    </funcdef>
-                    <paramdef>
-                        <parameter>c</parameter>
-                    </paramdef>
-                    <paramdef>
-                        <parameter>m</parameter>
-                    </paramdef>
-                    <paramdef>
-                        <parameter>y</parameter>
-                    </paramdef>
-                    <paramdef>
-                        <parameter>k</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа <type role="кумир">цвет</type> <type role="python">Color</type>, составленную из компонент цветовой модели CMYK:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>c</parameter>
-                            -- величина бирюзовой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>m</parameter>
-                            -- величина пурпурной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>y</parameter>
-                            -- величина желтой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>k</parameter>
-                            -- величина черной составляющей цвета.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-                Все значения состовляющих должны быть от
-                <code>0</code>
-                до<code>255</code>.
-            </para>
-            <para>
-                Цветовая модель CMYK основана на аддитивном смешиванием трех красок: чем выше
-                значение отдельных компонент, тем темнее получается цвет.
-            </para>
-            <para>
-                Как правило, при смешивании трех основных цветов -- бирюзового&nbsp;(<parameter>c</parameter>),
-                пурпурного&nbsp;(<parameter>m</parameter>) и желтого&nbsp;(<parameter>y</parameter>), не удается
-                получить настоящий темный цвет. Поэтому к трем основным цветам добавлен
-                черный&nbsp;(<parameter>k</parameter>).
-            </para>
-            <mediaobject>
-                <imageobject>
-                    <imagedata format="SVG" fileref="ActorPainter/CMYK_model.svg"/>
-                </imageobject>
-                <imageobject>
-                    <imagedata format="PDF" fileref="ActorPainter/CMYK_model.pdf"/>
-                </imageobject>
-                <caption>Цветовая модель CMYK</caption>
-            </mediaobject>
-        </section>
-        <section id="RGB">
-            <title>RGB</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>RGB</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>r</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>g</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>b</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели RGB:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>r</parameter>
-                            -- величина красной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>g</parameter>
-                            -- величина зеленой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>b</parameter>
-                            -- величина синей составляющей цвета.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-                Все значения состовляющих должны быть от
-                <code>0</code>
-                до<code>255</code>.
-            </para>
-            <para>
-                Цветовая модель RGB основана на субтрактивном смешиванием трех красок: чем выше
-                значение отдельных компонент, тем светлее получается цвет.
-            </para>
-            <mediaobject>
-                <imageobject>
-                    <imagedata format="SVG" fileref="ActorPainter/RGB_model.svg"/>
-                </imageobject>
-                <imageobject>
-                    <imagedata format="PDF" fileref="ActorPainter/RGB_model.pdf"/>
-                </imageobject>
-                <caption>Цветовая модель RGB</caption>
-            </mediaobject>
-        </section>
-        <section id="HSL">
-            <title>HSL</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>HSL</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>h</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>s</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>l</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели HSL:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>h</parameter>
-                            -- тон цвета (значения в градусах от
-                            <code>0</code>
-                            до
-                            <code>359</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение насыщенности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение интенсивности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="HSV">
-            <title>HSV</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>HSV</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>h</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>s</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>v</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели HSV:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>h</parameter>
-                            -- тон цвета (значения в градусах от
-                            <code>0</code>
-                            до
-                            <code>359</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение насыщенности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>v</parameter>
-                            -- значение яркости цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="CMYKA">
-            <title>CMYKA</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>CMYKA</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>c</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>m</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>y</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>k</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>a</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели CMYK и
-                значения альфа-канала:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>c</parameter>
-                            -- величина бирюзовой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>m</parameter>
-                            -- величина пурпурной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>y</parameter>
-                            -- величина желтой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>k</parameter>
-                            -- величина черной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>a</parameter>
-                            -- значение непрозрачности цвета (&alpha;-значение).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-                Все значения состовляющих должны быть от
-                <code>0</code>
-                до<code>255</code>.
-            </para>
-        </section>
-        <section id="RGBA">
-            <title>RGBA</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>RGBA</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>r</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>g</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>b</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>a</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели RGB и 
+			</programlisting>
+		</example>
+	</section>
+
+	<section id="класс Color" role="python">
+		<title>Представление значения типа "цвет"</title>
+		<para>
+			В исполнителе для представления цвета используется класс <type>Color</type>.
+			Значение величины типа <type>Color</type> может быть получено использованием
+			одного из алгоритмов составления цвета из отдельных компонент.
+		 </para>
+	</section>
+
+	<section id="Алгоритмы для работы с цветом">
+		<title>Алгоритмы для работы с цветом</title>
+		<para></para>
+
+		<section id="CMYK">
+			<title>CMYK</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>CMYK</function>
+					</funcdef>
+					<paramdef>цел <parameter>c</parameter> </paramdef>
+					<paramdef>цел <parameter>m</parameter> </paramdef>
+					<paramdef>цел <parameter>y</parameter> </paramdef>
+					<paramdef>цел <parameter>k</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<funcsynopsis role="python">
+				<funcsynopsisinfo>
+					<package>painter</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>def <function>CMYK</function> </funcdef>
+					<paramdef> <parameter>c</parameter> </paramdef>
+					<paramdef> <parameter>m</parameter> </paramdef>
+					<paramdef> <parameter>y</parameter> </paramdef>
+					<paramdef> <parameter>k</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа <type role="кумир">цвет</type> <type role="python">Color</type>,
+				составленную из компонент цветовой модели CMYK:
+			</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>c</parameter>
+							-- величина бирюзовой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>m</parameter>
+							-- величина пурпурной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>y</parameter>
+							-- величина желтой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>k</parameter>
+							-- величина черной составляющей цвета.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				Все значения составляющих должны быть от <code>0</code> до<code>255</code>.
+			</para>
+			<para>
+				Цветовая модель CMYK основана на аддитивном смешивании трех красок:
+				чем выше значение отдельных компонент, тем темнее получается цвет.
+			</para>
+			<para>
+				Как правило, при смешивании трех основных цветов
+				-- бирюзового&nbsp;(<parameter>c</parameter>),
+				пурпурного&nbsp;(<parameter>m</parameter>) и
+				желтого&nbsp;(<parameter>y</parameter>),
+				не удается получить настоящий темный цвет.
+				Поэтому к трем основным цветам добавлен
+				черный&nbsp;(<parameter>k</parameter>).
+			</para>
+			<mediaobject>
+				<imageobject>
+					<imagedata format="SVG" fileref="ActorPainter/CMYK_model.svg"/>
+				</imageobject>
+				<imageobject>
+					<imagedata format="PDF" fileref="ActorPainter/CMYK_model.pdf"/>
+				</imageobject>
+				<caption>Цветовая модель CMYK</caption>
+			</mediaobject>
+		</section>
+
+		<section id="RGB">
+			<title>RGB</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>RGB</function>
+					</funcdef>
+					<paramdef>цел <parameter>r</parameter> </paramdef>
+					<paramdef>цел <parameter>g</parameter> </paramdef>
+					<paramdef>цел <parameter>b</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели RGB:
+			</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>r</parameter>
+							-- величина красной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>g</parameter>
+							-- величина зеленой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>b</parameter>
+							-- величина синей составляющей цвета.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				Все значения составляющих должны быть от <code>0</code> до<code>255</code>.
+			</para>
+			<para>
+				Цветовая модель RGB основана на субтрактивном смешивании трех красок:
+				чем выше значение отдельных компонент, тем светлее получается цвет.
+			</para>
+			<mediaobject>
+				<imageobject>
+					<imagedata format="SVG" fileref="ActorPainter/RGB_model.svg"/>
+				</imageobject>
+				<imageobject>
+					<imagedata format="PDF" fileref="ActorPainter/RGB_model.pdf"/>
+				</imageobject>
+				<caption>Цветовая модель RGB</caption>
+			</mediaobject>
+		</section>
+
+		<section id="HSL">
+			<title>HSL</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo> <package>Рисователь</package> </funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>HSL</function>
+					</funcdef>
+					<paramdef>цел <parameter>h</parameter> </paramdef>
+					<paramdef>цел <parameter>s</parameter> </paramdef>
+					<paramdef>цел <parameter>l</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели HSL:
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>h</parameter>
+							-- тон цвета (значения в градусах
+							от <code>0</code> до <code>359</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение насыщенности цвета
+							(от <code>0</code> до <code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение интенсивности цвета
+							(от <code>0</code> до <code>255</code>).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="HSV">
+			<title>HSV</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>HSV</function>
+					</funcdef>
+					<paramdef>цел <parameter>h</parameter> </paramdef>
+					<paramdef>цел <parameter>s</parameter> </paramdef>
+					<paramdef>цел <parameter>v</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели HSV:
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>h</parameter>
+							-- тон цвета (значения в градусах от
+							<code>0</code> до <code>359</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение насыщенности цвета
+							(от <code>0</code> до <code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>v</parameter>
+							-- значение яркости цвета
+							(от <code>0</code> до <code>255</code>).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="CMYKA">
+			<title>CMYKA</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>CMYKA</function>
+					</funcdef>
+					<paramdef>цел <parameter>c</parameter> </paramdef>
+					<paramdef>цел <parameter>m</parameter> </paramdef>
+					<paramdef>цел <parameter>y</parameter> </paramdef>
+					<paramdef>цел <parameter>k</parameter> </paramdef>
+					<paramdef>цел <parameter>a</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели CMYK и
 				значения альфа-канала:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>r</parameter>
-                            -- величина красной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>g</parameter>
-                            -- величина зеленой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>b</parameter>
-                            -- величина синей составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>a</parameter>
-                            -- значение непрозрачности цвета (&alpha;-значение).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-                Все значения состовляющих должны быть от
-                <code>0</code>
-                до<code>255</code>.
-            </para>
-        </section>
-        <section id="HSLA">
-            <title>HSLA</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>HSLA</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>h</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>s</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>l</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>a</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели HSL и 
+			</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>c</parameter>
+							-- величина бирюзовой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>m</parameter>
+							-- величина пурпурной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>y</parameter>
+							-- величина желтой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>k</parameter>
+							-- величина черной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>a</parameter>
+							-- значение непрозрачности цвета (&alpha;-значение).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				Все значения составляющих должны быть
+				от <code>0</code> до<code>255</code>.
+			</para>
+		</section>
+
+		<section id="RGBA">
+			<title>RGBA</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>RGBA</function>
+					</funcdef>
+					<paramdef>цел <parameter>r</parameter> </paramdef>
+					<paramdef>цел <parameter>g</parameter> </paramdef>
+					<paramdef>цел <parameter>b</parameter> </paramdef>
+					<paramdef>цел <parameter>a</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели RGB и 
 				значения альфа-канала:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>h</parameter>
-                            -- тон цвета (значения в градусах от
-                            <code>0</code>
-                            до
-                            <code>359</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение насыщенности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>l</parameter>
-                            -- значение интенсивности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>a</parameter>
-                            -- значение непрозрачности цвета (&alpha;-значение,
-                            от
-                            <code>0</code>
-                            до<code>255</code>).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="HSVA">
-            <title>HSVA</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цвет</type>
-                        <function>HSVA</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>h</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>s</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>v</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>a</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает величину типа<type>цвет</type>, составленную из компонент цветовой модели HSL и 
-				значения альфа-канала:
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>h</parameter>
-                            -- тон цвета (значения в градусах от
-                            <code>0</code>
-                            до
-                            <code>359</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение насыщенности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>v</parameter>
-                            -- значение яркости цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>a</parameter>
-                            -- значение непрозрачности цвета (&alpha;-значение,
-                            от
-                            <code>0</code>
-                            до<code>255</code>).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
+			</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>r</parameter>
+							-- величина красной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>g</parameter>
+							-- величина зеленой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>b</parameter>
+							-- величина синей составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>a</parameter>
+							-- значение непрозрачности цвета (&alpha;-значение).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				Все значения составляющих должны быть
+				от <code>0</code> до<code>255</code>.
+			</para>
+		</section>
+
+		<section id="HSLA">
+			<title>HSLA</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>HSLA</function>
+					</funcdef>
+					<paramdef>цел <parameter>h</parameter> </paramdef>
+					<paramdef>цел <parameter>s</parameter> </paramdef>
+					<paramdef>цел <parameter>l</parameter> </paramdef>
+					<paramdef>цел <parameter>a</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели HSL и значения альфа-канала:
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>h</parameter>
+							-- тон цвета (значения в градусах от
+							<code>0</code>
+							до
+							<code>359</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение насыщенности цвета (от
+							<code>0</code>
+							до
+							<code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>l</parameter>
+							-- значение интенсивности цвета (от
+							<code>0</code>
+							до
+							<code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>a</parameter>
+							-- значение непрозрачности цвета (&alpha;-значение,
+							от
+							<code>0</code>
+							до<code>255</code>).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="HSVA">
+			<title>HSVA</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цвет</type> <function>HSVA</function>
+					</funcdef>
+					<paramdef>цел <parameter>h</parameter> </paramdef>
+					<paramdef>цел <parameter>s</parameter> </paramdef>
+					<paramdef>цел <parameter>v</parameter> </paramdef>
+					<paramdef>цел <parameter>a</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает величину типа<type>цвет</type>,
+				составленную из компонент цветовой модели HSV и значения альфа-канала:
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>h</parameter>
+							-- тон цвета (значения в градусах
+							от <code>0</code> до <code>359</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение насыщенности цвета
+							(от <code>0</code> до <code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>v</parameter>
+							-- значение яркости цвета
+							(от <code>0</code> до <code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>a</parameter>
+							-- значение непрозрачности цвета (&alpha;-значение,
+							от <code>0</code> до<code>255</code>).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
 		<section id="разложить в CMYK">
 			<title>разложить в CMYK</title>
 			<funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>CMYK</function>
-                    </funcdef>
-					<paramdef>цвет
-						<parameter>цв</parameter>
-					</paramdef>
-					<paramdef>аргрез цел
-                        <parameter>c</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>m</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>y</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>k</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<function>CMYK</function>
+					</funcdef>
+					<paramdef>цвет <parameter>цв</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>c</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>m</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>y</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>k</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
 			<para>
 				Позволяет получить значения параметров модели CMYK для анализируемого цвета.
+			</para>
+			<para>
 				<itemizedlist>
 					<listitem>
-                        <para>
-                            <parameter>цв</parameter>
+						<para>
+							<parameter>цв</parameter>
 							-- анализируемый цвет;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>c</parameter>
-                            -- величина бирюзовой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>m</parameter>
-                            -- величина пурпурной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>y</parameter>
-                            -- величина желтой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>k</parameter>
-                            -- величина черной составляющей цвета.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-				Все значения состовляющих должны быть от
-                <code>0</code>
-                до<code>255</code>.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>c</parameter>
+							-- величина бирюзовой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>m</parameter>
+							-- величина пурпурной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>y</parameter>
+							-- величина желтой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>k</parameter>
+							-- величина черной составляющей цвета.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<para>
+				Все значения составляющих находятся в пределах
+				от <code>0</code> до<code>255</code>.
 			</para>
 		</section>
+
 		<section id="разложить в RGB">
 			<title>разложить в RGB</title>
 			<funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>RGB</function>
-                    </funcdef>
-					<paramdef>цвет
-						<parameter>цв</parameter>
-					</paramdef>
-					<paramdef>аргрез цел
-                        <parameter>r</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>g</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>b</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>RGB</function> </funcdef>
+					<paramdef>цвет <parameter>цв</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>r</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>g</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>b</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
 			<para>
 				Позволяет получить значения параметров модели RGB для анализируемого цвета.
+			</para>
+			<para>
 				<itemizedlist>
 					<listitem>
-                        <para>
-                            <parameter>цв</parameter>
+						<para>
+							<parameter>цв</parameter>
 							-- анализируемый цвет;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>r</parameter>
-                            -- величина красной составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>g</parameter>
-                            -- величина зеленой составляющей цвета;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>b</parameter>
-                            -- величина синей составляющей цвета.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-				Все значения состовляющих должны быть от
-                <code>0</code>
-                до<code>255</code>.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>r</parameter>
+							-- величина красной составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>g</parameter>
+							-- величина зеленой составляющей цвета;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>b</parameter>
+							-- величина синей составляющей цвета.
+						</para>
+					</listitem>
+				</itemizedlist>
 			</para>
-				<example>
+			<para>
+				Все значения составляющих находятся в пределах
+				от <code>0</code> до<code>255</code>.
+			</para>
+			<example>
 				<title>Разложение в RGB</title>
 				<programlisting role="кумир"><![CDATA[
 использовать Рисователь
@@ -781,334 +696,300 @@ from painter import *
 				</programlisting>
 			</example>
 		</section>
+
 		<section id="разложить в HSL">
 			<title>разложить в HSL</title>
 			<funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>HSL</function>
-                    </funcdef>
-					<paramdef>цвет
-						<parameter>цв</parameter>
-					</paramdef>
-					<paramdef>аргрез цел
-                        <parameter>h</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>s</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>l</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>HSL</function> </funcdef>
+					<paramdef>цвет <parameter>цв</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>h</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>s</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>l</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
 			<para>
 				Позволяет получить значения параметров модели HSL для анализируемого цвета.
 				<itemizedlist>
 					<listitem>
-                        <para>
-                            <parameter>цв</parameter>
+						<para>
+							<parameter>цв</parameter>
 							-- анализируемый цвет;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>h</parameter>
-                            -- тон цвета (значения в градусах от
-                            <code>0</code>
-                            до
-                            <code>359</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение насыщенности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>l</parameter>
-                            -- значение интенсивности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>).
-                        </para>
-                    </listitem>
-                </itemizedlist>
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>h</parameter>
+							-- тон цвета (значения в градусах от
+							<code>0</code> до <code>359</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение насыщенности цвета
+							(от <code>0</code> до <code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>l</parameter>
+							-- значение интенсивности цвета
+							(от <code>0</code> до <code>255</code>).
+						</para>
+					</listitem>
+				</itemizedlist>
 			</para>
 		</section>
+
 		<section id="разложить в HSV">
 			<title>разложить в HSV</title>
 			<funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>HSV</function>
-                    </funcdef>
-					<paramdef>цвет
-						<parameter>цв</parameter>
-					</paramdef>
-					<paramdef>аргрез цел
-                        <parameter>h</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>s</parameter>
-                    </paramdef>
-					<paramdef>аргрез цел
-                        <parameter>v</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>HSV</function> </funcdef>
+					<paramdef>цвет <parameter>цв</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>h</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>s</parameter> </paramdef>
+					<paramdef>аргрез цел <parameter>v</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
 			<para>
 				Позволяет получить значения параметров модели HSL для анализируемого цвета.
 				<itemizedlist>
 					<listitem>
-                        <para>
-                            <parameter>цв</parameter>
+						<para>
+							<parameter>цв</parameter>
 							-- анализируемый цвет;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>h</parameter>
-                            -- тон цвета (значения в градусах от
-                            <code>0</code>
-                            до
-                            <code>359</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>s</parameter>
-                            -- значение насыщенности цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>v</parameter>
-                            -- значение яркости цвета (от
-                            <code>0</code>
-                            до
-                            <code>255</code>).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-			</para>
-		</section>
-    </section>
-    <section id="Информационные алгоритмы">
-        <title>Информационные алгоритмы</title>
-        <para>Алгоритмы этой группы позволяют определить размеры листа и текстовой надписи (в пикселях).</para>
-        <para>Вызов одного из этих алгоритмов не меняет состояние рисователя.</para>
-        <section id="высота листа">
-            <title>высота листа</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цел</type>
-                        <function>высота листа</function>
-                    </funcdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>Возвращает высоту листа.</para>
-        </section>
-        <section id="ширина листа">
-            <title>ширина листа</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цел</type>
-                        <function>ширина листа</function>
-                    </funcdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>Возвращает ширину листа.</para>
-        </section>
-        <section id="центр x">
-            <title>центр x</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цел</type>
-                        <function>центр x</function>
-                    </funcdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>Возвращает координату середины листа по горизонтали (ширине).</para>
-        </section>
-        <section id="центр y">
-            <title>центр y</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цел</type>
-                        <function>центр y</function>
-                    </funcdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>Возвращает координату середины листа по вертикали (высоте).</para>
-        </section>
-        <section id="ширина текста">
-            <title>ширина текста</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <type>цел</type>
-                        <function>ширина текста</function>
-                    </funcdef>
-                    <paramdef>лит
-                        <parameter>текст</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает ширину текста в пикселях при заданном шрифте.
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>текст</parameter>
-                            -- измеряемый текст.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="значение в точке">
-            <title>значение в точке</title>
-			<funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг цвет <function>значение в точке</function></funcdef>
-                    <paramdef>цел <parameter>x</parameter></paramdef>
-                    <paramdef>цел <parameter>y</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Возвращает значение цвета в точке с заданными координатами.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x</parameter> -- координата точки по горизонтали;</para>
-                    </listitem>
-                    <listitem>
-                        <para><parameter>y</parameter> -- координата точки по вертикали.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-    </section>
-    <section id="Установка параметров рисования">
-        <title>Установка параметров рисования</title>
-        <para>
-            Эти команды нужны для задания параметров рисования линии (толщина, цвет),
-            закрашивания (цвет), рисования текстовых надписей (гарнитура, размер символов,
-            использование жирных или курсивных букв). Эти параметры используются в ко-
-            мандах рисования.
-        </para>
-        <para>
-            Толщина линий задается в пикселях. Гарнитуры задаются литеральными величинами, список допустимых
-            гарнитур определяется таковым списком в операционной системе.
-        </para>
-        <section id="перо">
-            <title>перо</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>перо</function>
-                    </funcdef>
-                    <paramdef>цел
-                        <parameter>толщина</parameter>
-                    </paramdef>
-                    <paramdef>цвет
-                        <parameter>окраска контура</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Устанавливает параметры контура.
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>толщина</parameter>
-                            -- толщина линии. Изначально равна<code>1</code>. При толщине <code>0</code>
-                            линия не рисуется, но заливка внутренней области фигуры производится.
-                        </para>
+						</para>
 					</listitem>
 					<listitem>
-                        <para>
-                            <parameter>окраска контура</parameter>
-                            -- цвет линии вокруг рисуемой фигуры.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="кисть">
-            <title>кисть</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>кисть</function>
-                    </funcdef>
-                    <paramdef>цвет
-                        <parameter>заливка</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Устанавливает цвет заливки.
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>заливка</parameter>
-                            -- цвет заливки. Изначально <code>прозрачный</code> (рисование только контуров).
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
+						<para>
+							<parameter>h</parameter>
+							-- тон цвета (значения в градусах от
+							<code>0</code> до <code>359</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>s</parameter>
+							-- значение насыщенности цвета
+							(от <code>0</code> до <code>255</code>);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>v</parameter>
+							-- значение яркости цвета
+							(от <code>0</code> до <code>255</code>).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+	</section>
+
+	<section id="Информационные алгоритмы">
+		<title>Информационные алгоритмы</title>
+		<para>Алгоритмы этой группы позволяют определить размеры листа и текстовой надписи (в пикселях).</para>
+		<para>Вызов одного из этих алгоритмов не меняет состояние рисователя.</para>
+
+		<section id="высота листа">
+			<title>высота листа</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цел</type> <function>высота листа</function>
+					</funcdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>Возвращает высоту листа.</para>
+		</section>
+
+		<section id="ширина листа">
+			<title>ширина листа</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цел</type> <function>ширина листа</function>
+					</funcdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>Возвращает ширину листа.</para>
+		</section>
+
+		<section id="центр x">
+			<title>центр x</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цел</type> <function>центр x</function>
+					</funcdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>Возвращает координату середины листа по горизонтали (ширине).</para>
+		</section>
+
+		<section id="центр y">
+			<title>центр y</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цел</type> <function>центр y</function> </funcdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>Возвращает координату середины листа по вертикали (высоте).</para>
+		</section>
+
+		<section id="ширина текста">
+			<title>ширина текста</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг
+						<type>цел</type> <function>ширина текста</function>
+					</funcdef>
+					<paramdef>лит <parameter>текст</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает ширину текста в пикселях при заданном шрифте.
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>текст</parameter>
+							-- измеряемый текст.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="значение в точке">
+			<title>значение в точке</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг цвет <function>значение в точке</function></funcdef>
+					<paramdef>цел <parameter>x</parameter></paramdef>
+					<paramdef>цел <parameter>y</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает значение цвета в точке с заданными координатами.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x</parameter> -- координата точки по горизонтали;</para>
+					</listitem>
+					<listitem>
+						<para><parameter>y</parameter> -- координата точки по вертикали.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+	</section>
+
+	<section id="Установка параметров рисования">
+		<title>Установка параметров рисования</title>
+		<para>
+			Эти команды нужны для задания параметров рисования линии (толщина, цвет),
+			закрашивания (цвет), рисования текстовых надписей
+			(гарнитура, размер символов, использование жирных или курсивных букв).
+			Эти параметры используются в командах рисования.
+		</para>
+		<para>
+			Толщина линий задается в пикселях.
+			Гарнитуры задаются литеральными величинами, список допустимых
+			гарнитур определяется таковым списком в операционной системе.
+		</para>
+
+		<section id="перо">
+			<title>перо</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>перо</function> </funcdef>
+					<paramdef>цел <parameter>толщина</parameter> </paramdef>
+					<paramdef>цвет <parameter>окраска контура</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Устанавливает параметры контура.
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>толщина</parameter>
+							-- толщина линии.
+							Изначально равна<code>1</code>.
+							При толщине <code>0</code> линия не рисуется,
+							но заливка внутренней области фигуры производится.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>окраска контура</parameter>
+							-- цвет линии вокруг рисуемой фигуры.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="кисть">
+			<title>кисть</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>кисть</function> </funcdef>
+					<paramdef>цвет <parameter>заливка</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Устанавливает цвет заливки.
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>заливка</parameter>
+							-- цвет заливки.
+							Изначально <code>прозрачный</code> (рисование только контуров).
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
 		<section id="убрать кисть">
 			<title>убрать кисть</title>
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
 				<funcprototype>
-					<funcdef>алг
-						<function>убрать кисть</function>
-                    </funcdef>
+					<funcdef>алг <function>убрать кисть</function> </funcdef>
 				</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1130,110 +1011,112 @@ from painter import *
 				</programlisting>
 			</example>
 		</section>
+
 		<section id="плотность">
 			<title>плотность</title>
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
 				<funcprototype>
 					<funcdef>алг
 						<function>плотность</function>
 						<paramdef>цел <parameter>значение</parameter></paramdef>
-                    </funcdef>
+					</funcdef>
 				</funcprototype>
 			</funcsynopsis>
 			<para>
-				Устанавливает плотность заливки. Параметр <parameter>значение</parameter> должен принадлежать промежутку <code>[0; 8]</code>.
+				Устанавливает плотность заливки.
+				Параметр <parameter>значение</parameter>
+				должен принадлежать промежутку <code>[0; 8]</code>.
 			</para>
 		</section>
-        <section id="шрифт">
-            <title>шрифт</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo>
-                    <package>Рисователь</package>
-                </funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг
-                        <function>шрифт</function>
-                    </funcdef>
-                    <paramdef>лит
-                        <parameter>гарнитура</parameter>
-                    </paramdef>
-                    <paramdef>цел
-                        <parameter>размер</parameter>
-                    </paramdef>
-                    <paramdef>лог
-                        <parameter>жирный</parameter>
-                    </paramdef>
-                    <paramdef>лог
-                        <parameter>курсив</parameter>
-                    </paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Устанавливает параметры шрифта, которые используются алгоритмами <function>надпись</function> и
-                <function>ширина текста</function>.
-                Изначальные параметры шрифта соответствуют таковым в настройках операционной системы.
-                <itemizedlist>
-                    <listitem>
-                        <para>
-                            <parameter>гарнитура</parameter>
-                            -- гарнитура шрифта (Arial, Times New Roman и т.д.);
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>размер</parameter>
-                            -- размер шрифта, который определяется как количество пикселей от базовой линии до верхней границы заглавных букв;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>жирный</parameter>
-                            -- признак использования жирного начертания шрифта;
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <parameter>курсив</parameter>
-                            -- признак использования курсивного начертания шрифта.
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-    </section>
-    <section id="Алгоритмы рисования на листе">
-        <title>Алгоритмы рисования на листе</title>
-        <para>
-            Линии и надписи выполняются пером (его толщина и цвет устанавливаются в команде <code>перо</code>). Для
-            пера определено текущее положение, которое устанавливается в
-            команде <code>в точку</code>. Начальное положение -- (<code>0</code>, <code>0</code>). Если точка, которую
-            нужно отметить, находится вне листа -- никаких действий не производится.
-        </para>
-        <section id="в точку">
-            <title>в точку</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>в точку</function></funcdef>
-                    <paramdef>цел <parameter>x</parameter></paramdef>
-                    <paramdef>цел <parameter>y</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Перемещает перо рисователя в точку, ничего при этом не рисуя.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x</parameter> -- координата целевой точки по горизонтали;</para>
-                    </listitem>
-                    <listitem>
-                        <para><parameter>y</parameter> -- координата целевой точки по вертикали.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
+
+		<section id="шрифт">
+			<title>шрифт</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo>
+					<package>Рисователь</package>
+				</funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>шрифт</function> </funcdef>
+					<paramdef>лит <parameter>гарнитура</parameter> </paramdef>
+					<paramdef>цел <parameter>размер</parameter> </paramdef>
+					<paramdef>лог <parameter>жирный</parameter> </paramdef>
+					<paramdef>лог <parameter>курсив</parameter> </paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Устанавливает параметры шрифта,
+				которые используются алгоритмами
+				<function>надпись</function> и
+				<function>ширина текста</function>.
+				Изначальные параметры шрифта соответствуют таковым в настройках операционной системы.
+				<itemizedlist>
+					<listitem>
+						<para>
+							<parameter>гарнитура</parameter>
+							-- гарнитура шрифта (Arial, Times New Roman и т.д.);
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>размер</parameter>
+							-- размер шрифта, который определяется как количество пикселей от базовой линии до верхней границы заглавных букв;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>жирный</parameter>
+							-- признак использования жирного начертания шрифта;
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							<parameter>курсив</parameter>
+							-- признак использования курсивного начертания шрифта.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+	</section>
+
+	<section id="Алгоритмы рисования на листе">
+		<title>Алгоритмы рисования на листе</title>
+		<para>
+			Линии и надписи выполняются пером
+			(его толщина и цвет устанавливаются в команде <code>перо</code>).
+			Для пера определено текущее положение,
+			которое устанавливается в команде <code>в точку</code>.
+			Начальное положение -- (<code>0</code>, <code>0</code>).
+			Если точка, которую нужно отметить, находится вне листа --
+			никаких действий не производится.
+		</para>
+
+		<section id="в точку">
+			<title>в точку</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>в точку</function></funcdef>
+					<paramdef>цел <parameter>x</parameter></paramdef>
+					<paramdef>цел <parameter>y</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Перемещает перо рисователя в точку, ничего при этом не рисуя.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x</parameter> -- координата целевой точки по горизонтали;</para>
+					</listitem>
+					<listitem>
+						<para><parameter>y</parameter> -- координата целевой точки по вертикали.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
 		<section id="линия">
 			<title>линия</title>
 			<funcsynopsis role="кумир">
@@ -1241,9 +1124,9 @@ from painter import *
 				<funcprototype>
 					<funcdef>алг <function>линия</function></funcdef>
 					<paramdef>цел <parameter>x1</parameter></paramdef>
-                    <paramdef>цел <parameter>y1</parameter></paramdef>
+					<paramdef>цел <parameter>y1</parameter></paramdef>
 					<paramdef>цел <parameter>x2</parameter></paramdef>
-                    <paramdef>цел <parameter>y2</parameter></paramdef>
+					<paramdef>цел <parameter>y2</parameter></paramdef>
 				</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1258,28 +1141,30 @@ from painter import *
 				</itemizedlist>
 			</para>
 		</section>
-        <section id="линия в точку">
-            <title>линия в точку</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>линия в точку</function></funcdef>
-                    <paramdef>цел <parameter>x</parameter></paramdef>
-                    <paramdef>цел <parameter>y</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Перемещает перо рисователя в точку, рисуя при этом прямую линию.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x</parameter> -- координата целевой точки по горизонтали;</para>
-                    </listitem>
-                    <listitem>
-                        <para><parameter>y</parameter> -- координата целевой точки по вертикали.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
+
+		<section id="линия в точку">
+			<title>линия в точку</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>линия в точку</function></funcdef>
+					<paramdef>цел <parameter>x</parameter></paramdef>
+					<paramdef>цел <parameter>y</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Перемещает перо рисователя в точку, рисуя при этом прямую линию.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x</parameter> -- координата целевой точки по горизонтали;</para>
+					</listitem>
+					<listitem>
+						<para><parameter>y</parameter> -- координата целевой точки по вертикали.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
 		<section id="многоугольник">
 			<title>многоугольник</title>
 			<funcsynopsis role="кумир">
@@ -1304,236 +1189,256 @@ from painter import *
 						<para><parameter>yy</parameter> -- массив ординат вершин.</para>
 					</listitem>
 				</itemizedlist>
-				Каждая вершина с номером <code role="кумир">i</code> имеет координаты <code role="кумир">(xx[i], yy[i])</code>. 
-				Размеры обоих массивов координат должен совпадать с количеством вершин 
+				Каждая вершина с номером <code role="кумир">i</code>
+				имеет координаты <code role="кумир">(xx[i], yy[i])</code>.
+				Размеры обоих массивов координат должны совпадать с количеством вершин
 				<parameter>n</parameter>.
 			</para>
+			<para>
+				В данный момент не работает.
+			</para>
 		</section>
-        <section id="пиксель">
-            <title>пиксель</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>пиксель</function></funcdef>
-                    <paramdef>цел <parameter>x</parameter></paramdef>
-                    <paramdef>цел <parameter>y</parameter></paramdef>
-                    <paramdef><type>цвет</type> <parameter>значение</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Рисует ровно одну точку размером в один пиксель.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x</parameter> -- координата точки по горизонтали;</para>
-                    </listitem>
-                    <listitem>
-                        <para><parameter>y</parameter> -- координата точки по вертикали;</para>
-                    </listitem>
-                    <listitem>
-                        <para><parameter>значение</parameter> -- значение цвета точки.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="прямоугольник">
-            <title>прямоугольник</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>прямоугольник</function></funcdef>
-                    <paramdef>цел <parameter>x1</parameter></paramdef>
-                    <paramdef>цел <parameter>y1</parameter></paramdef>
-                    <paramdef>цел <parameter>x2</parameter></paramdef>
-                    <paramdef>цел <parameter>y2</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Рисует прямоугольник.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x1</parameter> -- координата левой границы прямоугольника;</para>
+
+		<section id="пиксель">
+			<title>пиксель</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>пиксель</function></funcdef>
+					<paramdef>цел <parameter>x</parameter></paramdef>
+					<paramdef>цел <parameter>y</parameter></paramdef>
+					<paramdef><type>цвет</type> <parameter>значение</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Рисует ровно одну точку размером в один пиксель.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x</parameter> -- координата точки по горизонтали;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>y1</parameter> -- координата верхней границы прямоугольника;</para>
+						<para><parameter>y</parameter> -- координата точки по вертикали;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>x2</parameter> -- координата правой границы прямоугольника;</para>
+						<para><parameter>значение</parameter> -- значение цвета точки.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="прямоугольник">
+			<title>прямоугольник</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>прямоугольник</function></funcdef>
+					<paramdef>цел <parameter>x1</parameter></paramdef>
+					<paramdef>цел <parameter>y1</parameter></paramdef>
+					<paramdef>цел <parameter>x2</parameter></paramdef>
+					<paramdef>цел <parameter>y2</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Рисует прямоугольник.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x1</parameter> -- координата левой границы прямоугольника;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>y2</parameter> -- координата нижней границы прямоугольника.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="эллипс">
-            <title>эллипс</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>эллипс</function></funcdef>
-                    <paramdef>цел <parameter>x1</parameter></paramdef>
-                    <paramdef>цел <parameter>y1</parameter></paramdef>
-                    <paramdef>цел <parameter>x2</parameter></paramdef>
-                    <paramdef>цел <parameter>y2</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Рисует эллипс.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x1</parameter> -- координата левой границы прямоугольника, в который вписан эллипс;</para>
+						<para><parameter>y1</parameter> -- координата верхней границы прямоугольника;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>y1</parameter> -- координата верхней границы прямоугольника, в который вписан эллипс;</para>
+						<para><parameter>x2</parameter> -- координата правой границы прямоугольника;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>x2</parameter> -- координата правой границы прямоугольника, в который вписан эллипс;</para>
+						<para><parameter>y2</parameter> -- координата нижней границы прямоугольника.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="эллипс">
+			<title>эллипс</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>эллипс</function></funcdef>
+					<paramdef>цел <parameter>x1</parameter></paramdef>
+					<paramdef>цел <parameter>y1</parameter></paramdef>
+					<paramdef>цел <parameter>x2</parameter></paramdef>
+					<paramdef>цел <parameter>y2</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Рисует эллипс.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x1</parameter> -- координата левой границы прямоугольника, в который вписан эллипс;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>y2</parameter> -- координата нижней границы прямоугольника, в который вписан эллипс.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="окружность">
-            <title>окружность</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>окружность</function></funcdef>
-                    <paramdef>цел <parameter>xc</parameter></paramdef>
-                    <paramdef>цел <parameter>yc</parameter></paramdef>
-                    <paramdef>цел <parameter>r</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Рисует окружность.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>xc</parameter> -- координата центра окружности по горизонтали;</para>
+						<para><parameter>y1</parameter> -- координата верхней границы прямоугольника, в который вписан эллипс;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>yc</parameter> -- координата центра окружности по вертикали;</para>
+						<para><parameter>x2</parameter> -- координата правой границы прямоугольника, в который вписан эллипс;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>r</parameter> -- радиус окружности.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="надпись">
-            <title>надпись</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>надпись</function></funcdef>
-                    <paramdef>цел <parameter>x</parameter></paramdef>
-                    <paramdef>цел <parameter>y</parameter></paramdef>
-                    <paramdef>лит <parameter>текст</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Рисует надпись.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x</parameter> -- координата левой границы прямоугольника, в который вписана надпись;</para>
+						<para><parameter>y2</parameter> -- координата нижней границы прямоугольника, в который вписан эллипс.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="окружность">
+			<title>окружность</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>окружность</function></funcdef>
+					<paramdef>цел <parameter>xc</parameter></paramdef>
+					<paramdef>цел <parameter>yc</parameter></paramdef>
+					<paramdef>цел <parameter>r</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Рисует окружность.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>xc</parameter> -- координата центра окружности по горизонтали;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>y</parameter> -- координата верхней границы прямоугольника, в который вписана надпись;</para>
+						<para><parameter>yc</parameter> -- координата центра окружности по вертикали;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>текст</parameter> -- текст надписи.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="залить">
-            <title>залить</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>залить</function></funcdef>
-                    <paramdef>цел <parameter>x</parameter></paramdef>
-                    <paramdef>цел <parameter>y</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Заливает связанную область вокруг точки одним цветом. Область вокруг точки -- это связное множество соседних точек и их соседей, которые имеют тот
-                же цвет, что и исходная точка и включают саму точку. Связность понимается только по вертикали и горизонтали.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>x</parameter> -- координата исходной точки по горизонтали;</para>
-                    </listitem>
-                    <listitem>
-                        <para><parameter>y</parameter> -- координата исходной точки по вертикали.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-    </section>
-    <section id="Алгоритмы работы с листами">
-        <title>Алгоритмы работы с листами</title>
-        <section id="новый лист">
-            <title>новый лист</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>новый лист</function></funcdef>
-                    <paramdef>цел <parameter>ширина</parameter></paramdef>
-                    <paramdef>цел <parameter>высота</parameter></paramdef>
-                    <paramdef><type>цвет</type> <parameter>фон</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Создает новый лист для рисования.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>ширина</parameter> -- ширина нового листа в пикселях;</para>
+						<para><parameter>r</parameter> -- радиус окружности.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="надпись">
+			<title>надпись</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>надпись</function></funcdef>
+					<paramdef>цел <parameter>x</parameter></paramdef>
+					<paramdef>цел <parameter>y</parameter></paramdef>
+					<paramdef>лит <parameter>текст</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Рисует надпись.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x</parameter> -- координата левой границы прямоугольника, в который вписана надпись;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>высота</parameter> -- высота нового листа в пикселях;</para>
+						<para><parameter>y</parameter> -- координата верхней границы прямоугольника, в который вписана надпись;</para>
 					</listitem>
 					<listitem>
-                        <para><parameter>фон</parameter> -- цвет фона нового листа.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="загрузить лист">
-            <title>загрузить лист</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>загрузить лист</function></funcdef>
-                    <paramdef>лит <parameter>имя файла</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Создает новый лист для рисования, используя в качестве фона внешний графический файл в формате PNG.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>имя файла</parameter> -- имя файла с изображением.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-        <section id="сохранить лист">
-            <title>сохранить лист</title>
-            <funcsynopsis role="кумир">
-                <funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
-                <funcprototype>
-                    <funcdef>алг <function>сохранить лист</function></funcdef>
-                    <paramdef>лит <parameter>имя файла</parameter></paramdef>
-                </funcprototype>
-            </funcsynopsis>
-            <para>
-                Сохраняет полученный на листе результат во внешний графический файл в формате PNG.
-                <itemizedlist>
-                    <listitem>
-                        <para><parameter>имя файла</parameter> -- имя файла с изображением.</para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </section>
-    </section>
+						<para><parameter>текст</parameter> -- текст надписи.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="залить">
+			<title>залить</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>залить</function></funcdef>
+					<paramdef>цел <parameter>x</parameter></paramdef>
+					<paramdef>цел <parameter>y</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Заливает связанную область вокруг точки одним цветом.
+				Область вокруг точки -- это связное множество соседних точек и их соседей,
+				которые имеют тот же цвет, что и исходная точка и включают саму точку.
+				Связность понимается только по вертикали и горизонтали.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>x</parameter> -- координата исходной точки по горизонтали;</para>
+					</listitem>
+					<listitem>
+						<para><parameter>y</parameter> -- координата исходной точки по вертикали.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+	</section>
+	<section id="Алгоритмы работы с листами">
+		<title>Алгоритмы работы с листами</title>
+
+		<section id="новый лист">
+			<title>новый лист</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>новый лист</function></funcdef>
+					<paramdef>цел <parameter>ширина</parameter></paramdef>
+					<paramdef>цел <parameter>высота</parameter></paramdef>
+					<paramdef><type>цвет</type> <parameter>фон</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Создает новый лист для рисования.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>ширина</parameter> -- ширина нового листа в пикселях;</para>
+					</listitem>
+					<listitem>
+						<para><parameter>высота</parameter> -- высота нового листа в пикселях;</para>
+					</listitem>
+					<listitem>
+						<para><parameter>фон</parameter> -- цвет фона нового листа.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="загрузить лист">
+			<title>загрузить лист</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>загрузить лист</function></funcdef>
+					<paramdef>лит <parameter>имя файла</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Создает новый лист для рисования,
+				используя в качестве фона внешний графический файл в формате PNG.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>имя файла</parameter> -- имя файла с изображением.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+		<section id="сохранить лист">
+			<title>сохранить лист</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Рисователь</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>сохранить лист</function></funcdef>
+					<paramdef>лит <parameter>имя файла</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Сохраняет полученный на листе результат во внешний графический файл в формате PNG.
+				<itemizedlist>
+					<listitem>
+						<para><parameter>имя файла</parameter> -- имя файла с изображением.</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+
+	</section>
+
+	<para/>
 </article>

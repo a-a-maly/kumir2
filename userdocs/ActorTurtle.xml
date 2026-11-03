@@ -1,27 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE book
-    PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-    "docbookV4.5/docbookx.dtd"
-    []
+	PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	"docbookV4.5/docbookx.dtd"
+	[]
 >
 <article>
-    <title>Исполнитель "Черепаха"</title>
-    <titleabbrev>Черепаха</titleabbrev>
+	<title>Исполнитель "Черепаха"</title>
+	<titleabbrev>Черепаха</titleabbrev>
 	<section id="общие сведения">
 		<title>Использование исполнителя</title>
-		<para>Исполнитель "Черепаха" входит в Вашу поставку Кумир, но его функции не являются частью языка 
-		программирования. Для его использования необходимо в программе явно указать использование данного исполнителя: 
-		<programlisting role="кумир"><![CDATA[
+		<para>
+			Исполнитель "Черепаха" входит в Вашу поставку Кумир,
+			но его функции не являются частью языка программирования.
+			Для его использования необходимо в программе явно указать
+			использование данного исполнителя:
+			<programlisting role="кумир"><![CDATA[
 использовать Черепаха
 | теперь функции черепахи доступны
 | для использования в программе
 ]]>
-        </programlisting>
+			</programlisting>
 		</para>
 	</section>
+
 	<section id="команды действий">
 		<title>Команды действий
 		</title>
+
 		<section>
 			<title>поднять хвост</title>
 			<funcsynopsis role="кумир">
@@ -30,9 +35,12 @@
 					<funcdef>алг <function>поднять хвост</function></funcdef>
 				</funcprototype>
 			</funcsynopsis>
-			<para>Черепаха поднимает хвост. Теперь при перемещении Черепаха <emphasis role="italic">не 
-			будет</emphasis> чертить линию.</para>
+			<para>
+				Черепаха поднимает хвост. Теперь при перемещении Черепаха
+				<emphasis role="italic">не будет</emphasis> чертить линию.
+			</para>
 		</section>
+
 		<section>
 			<title>опустить хвост</title>
 			<funcsynopsis role="кумир">
@@ -41,9 +49,31 @@
 					<funcdef>алг <function>опустить хвост</function></funcdef>
 				</funcprototype>
 			</funcsynopsis>
-			<para>Черепаха опускает хвост. Теперь при перемещении Черепаха <emphasis role="italic">будет</emphasis> 
-			чертить линию.</para>
+			<para>
+				Черепаха опускает хвост. Теперь при перемещении Черепаха
+				<emphasis role="italic">будет</emphasis> чертить линию.
+			</para>
 		</section>
+
+		<section>
+			<title>выбрать чернила</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Черепаха</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг <function>выбрать чернила</function></funcdef>
+					<paramdef>цвет <parameter>а</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>Устанавливает цвет чернил.</para>
+			<itemizedlist>
+				<listitem><parameter>а</parameter> -- цвет чернил.</listitem>
+			</itemizedlist>
+			<para>
+				Подробнее о типе <type>цвет</type> и дополнительных функциях для
+				работы с ним смотрите в справочном руководстве исполнителя "Рисователь".
+			</para>
+		</section>
+
 		<section>
 			<title>вперед</title>
 			<funcsynopsis role="кумир">
@@ -53,11 +83,14 @@
 					<paramdef>цел <parameter>а</parameter></paramdef>
 				</funcprototype>
 			</funcsynopsis>
-			<para>Черепаха перемещается вперёд на заданное количество точек (пикселей).</para>
+			<para>
+				Черепаха перемещается вперёд на заданное количество точек (пикселей).
+			</para>
 			<itemizedlist>
 				<listitem><parameter>а</parameter> -- количество пикселей, на которое переместится Черепаха.</listitem>
 			</itemizedlist>
 		</section>
+
 		<section>
 			<title>назад</title>
 			<funcsynopsis role="кумир">
@@ -72,6 +105,7 @@
 				<listitem><parameter>а</parameter> -- количество пикселей, на которое переместится Черепаха.</listitem>
 			</itemizedlist>
 		</section>
+
 		<section>
 			<title>влево</title>
 			<funcsynopsis role="кумир">
@@ -86,6 +120,7 @@
 				<listitem><parameter>угол</parameter> -- значение угла (в градусах), на который повернётся Черепаха.</listitem>
 			</itemizedlist>
 		</section>
+
 		<section>
 			<title>вправо</title>
 			<funcsynopsis role="кумир">
@@ -101,4 +136,6 @@
 			</itemizedlist>
 		</section>
 	</section>
+
+	<para/>
 </article>
