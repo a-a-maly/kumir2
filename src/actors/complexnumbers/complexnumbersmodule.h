@@ -11,6 +11,7 @@ You should change it corresponding to functionality.
 
 #include <kumir2-libs/extensionsystem/kplugin.h>
 #include "complexnumbersmodulebase.h"
+#include <complex>
 
 namespace ActorComplexNumbers
 {
@@ -44,6 +45,7 @@ public slots:
 	// Actor methods
 	qreal runRe(const Complex &x);
 	qreal runIm(const Complex &x);
+	Complex runConj(const Complex &x);
 	Complex runOperatorPLUS(const Complex &x, const Complex &y);
 	Complex runOperatorMINUS(const Complex &x, const Complex &y);
 	Complex runOperatorASTERISK(const Complex &x, const Complex &y);
@@ -53,6 +55,18 @@ public slots:
 	Complex runOperatorINPUT(const QString &x, bool &ok);
 	QString runOperatorOUTPUT(const Complex &x);
 }; // ComplexNumbersModule
+
+typedef std::complex<double> dcomplex;
+
+static inline Complex toComplex(dcomplex x)
+{
+    return Complex{x.real(), x.imag()};
+}
+
+static inline dcomplex fromComplex(Complex x)
+{
+    return dcomplex(x.re, x.im);
+}
 
 } // ActorComplexNumbers
 

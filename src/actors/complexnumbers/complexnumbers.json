@@ -25,6 +25,13 @@
 			]
 		},
 		{
+			"name": {"ascii": "conj" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
 			"name": {"ascii": "+" },
 			"returnType": "complex",
 			"arguments": [

@@ -287,6 +287,8 @@ public:
 		unsigned int width, int decimals, char al
 	);
 
+	static String sprintfReal(real value, unsigned int precision = 16);
+
 	static int stringToInt(const String &str, bool &ok)
 	{
 		ParseError error = NoError;

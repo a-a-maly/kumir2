@@ -66,6 +66,11 @@ qreal ComplexNumbersModule::runIm(const Complex& x)
 	return x.im;
 }
 
+Complex ComplexNumbersModule::runConj(const Complex& x)
+{
+	return Complex{x.re, -x.im};
+}
+
 Complex ComplexNumbersModule::runOperatorPLUS(const Complex& x, const Complex& y)
 {
 	Complex result;
@@ -82,26 +87,21 @@ Complex ComplexNumbersModule::runOperatorMINUS(const Complex& x, const Complex& 
 	return result;
 }
 
-Complex ComplexNumbersModule::runOperatorASTERISK(const Complex& x, const Complex& y)
+Complex ComplexNumbersModule::runOperatorASTERISK(const Complex& _x, const Complex& _y)
 {
-	Complex result;
-	result.re = x.re*y.re - x.im*y.im;
-	result.im = x.re*y.im + x.im*y.re;
-	return result;
+    dcomplex x = fromComplex(_x), y = fromComplex(_y);
+    return toComplex(x * y);
 }
 
-Complex ComplexNumbersModule::runOperatorSLASH(const Complex& x, const Complex& y)
+Complex ComplexNumbersModule::runOperatorSLASH(const Complex& _x, const Complex& _y)
 {
-	Complex result;
-	result.im = result.re = 0.0;
-	if (y.re==0 && y.im==0) {
+	if (_y.re==0 && _y.im==0) {
 		setError(QString::fromUtf8("Деление на комплексный нуль"));
-		return result;
+		return Complex{0.0, 0.0};
 	}
-	qreal factor = y.re*y.re + y.im*y.im;
-	result.re = (x.re*y.re+x.im*y.im) / factor;
-	result.im = (x.im*y.re-x.re*y.im) / factor;
-	return result;
+
+    dcomplex x = fromComplex(_x), y = fromComplex(_y);
+    return toComplex(x / y);
 }
 
 
@@ -131,15 +131,13 @@ Complex ComplexNumbersModule::runOperatorINPUT(const QString& x, bool& ok)
 			im = x.trimmed();
 		else
 			re = x.trimmed();
-	}
-	else {
+	} else {
 		QString a = x.left(p).trimmed();
 		QString b = x.mid(p+1).trimmed();
 		if (a.endsWith(QChar('i'), Qt::CaseInsensitive)) {
 			im = a;
 			re = x[p]+b;
-		}
-		else {
+		} else {
 			im = x[p]+b;
 			re = a;
 		}
@@ -164,16 +162,10 @@ Complex ComplexNumbersModule::runOperatorINPUT(const QString& x, bool& ok)
 
 QString ComplexNumbersModule::runOperatorOUTPUT(const Complex& x)
 {
-	QString re = QString::fromStdWString(
-		Kumir::Converter::sprintfReal(x.re, '.', false, 0, 0, 0)
-	);
-	QString im = QString::fromStdWString(
-		Kumir::Converter::sprintfReal(x.im, '.', false, 0, 0, 0)
-	);
+	QString re = QString::fromStdWString(Kumir::Converter::sprintfReal(x.re, 16));
+	QString im = QString::fromStdWString(Kumir::Converter::sprintfReal(x.im, 16));
 
-	QString result = re;
-	result += im.startsWith('-') ? "" : "+";
-	result += im + "i";
+	QString result = re + (im.startsWith('-') ? "" : "+") + im + "i";
 	return result;
 }
 

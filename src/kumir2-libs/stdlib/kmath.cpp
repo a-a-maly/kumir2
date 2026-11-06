@@ -12,6 +12,7 @@
 #include <cmath>
 #include <algorithm>
 #include <float.h>
+#include <string.h>
 
 #include <time.h>
 #if !defined(_WIN32) || defined(__MINGW32__) 
@@ -765,6 +766,13 @@ String Converter::sprintfInt(int value, unsigned int base, unsigned int width, c
 		}
 	}
 	return result;
+}
+
+String Converter::sprintfReal(real value, unsigned int prec)
+{
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%.*g", prec, value);
+    return String(buf, buf + strlen(buf));
 }
 
 String Converter::sprintfReal(
