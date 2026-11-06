@@ -39,19 +39,35 @@ public slots:
 	// Reset actor state before program starts
 	void reset();
 	void terminateEvaluation();
+
 	// Set animation flag
 	void setAnimationEnabled(bool enabled);
+
+    bool check(double &x);
+    bool check(Complex &x);
 
 	// Actor methods
 	qreal runRe(const Complex &x);
 	qreal runIm(const Complex &x);
+
 	Complex runConj(const Complex &x);
+	qreal runCabs(const Complex &x);
+	qreal runCarg(const Complex &x);
+	Complex runCpolar(qreal r, qreal arg);
+
+	Complex runCexp(const Complex &x);
+	Complex runCln(const Complex &x);
+	Complex runClg(const Complex &x);
+
 	Complex runOperatorPLUS(const Complex &x, const Complex &y);
 	Complex runOperatorMINUS(const Complex &x, const Complex &y);
 	Complex runOperatorASTERISK(const Complex &x, const Complex &y);
 	Complex runOperatorSLASH(const Complex &x, const Complex &y);
-	Complex runOperatorASSIGN(const int x);
-	Complex runOperatorASSIGN(const qreal x);
+	Complex runOperatorPOWER(const Complex &x, const Complex &y);
+
+	Complex runOperatorASSIGN(int x);
+	Complex runOperatorASSIGN(qreal x);
+
 	Complex runOperatorINPUT(const QString &x, bool &ok);
 	QString runOperatorOUTPUT(const Complex &x);
 }; // ComplexNumbersModule

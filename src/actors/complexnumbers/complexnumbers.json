@@ -32,6 +32,49 @@
 			]
 		},
 		{
+			"name": {"ascii": "cabs" },
+			"returnType": "double",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "carg" },
+			"returnType": "double",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "cpolar" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "r", "baseType": "double" },
+				{ "name": "arg", "baseType": "double" }
+			]
+		},
+		{
+			"name": {"ascii": "cexp" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "cln" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "clg" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
 			"name": {"ascii": "+" },
 			"returnType": "complex",
 			"arguments": [
@@ -57,6 +100,14 @@
 		},
 		{
 			"name": {"ascii": "/" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" },
+				{ "name": "y", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "**" },
 			"returnType": "complex",
 			"arguments": [
 				{ "name": "x", "baseType": "complex" },

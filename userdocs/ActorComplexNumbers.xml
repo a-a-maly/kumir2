@@ -51,7 +51,8 @@
 		</para>
 		<para>
 			Для типа <type>компл</type> реализованы все арифметические операции,
-			кроме возведения в степень. Сравнение же для комплексных чисел неопределено.
+			возведение в степень возвращает главное значение.
+			Сравнение же для комплексных чисел неопределено.
 			Поскольку любое действительное число является также комплексным,
 			то переменной типа <type>компл</type> можно присвоить переменную 
 			не только такого же типа, но и типа <type>цел</type> или <type>вещ</type>.
@@ -66,8 +67,8 @@
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
 				<funcprototype>
-					<funcdef>алг <type>вещ</type><function>Re</function></funcdef>
-					<paramdef>компл <parameter>x</parameter></paramdef>
+					<funcdef>алг<type>вещ</type><function>Re</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
 				</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -80,15 +81,121 @@
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
 				<funcprototype>
-					<funcdef>алг <type>вещ</type><function>Im</function></funcdef>
-					<paramdef>компл <parameter>x</parameter></paramdef>
+					<funcdef>алг<type>вещ</type><function>Im</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
 				</funcprototype>
 			</funcsynopsis>
 			<para>
 				Возвращает мнимую (imaginary) часть числа <code role="кумир">х</code>.
 			</para>
 		</section>
+
+		<section>
+			<title>conj</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>conj</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает сопряжённое к числу <code role="кумир">х</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>cabs</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>вещ</type><function>cabs</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает абсолютную величину (модуль) числа <code role="кумир">х</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>carg</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>вещ</type><function>carg</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает аргумент (полярный угол) числа <code role="кумир">х</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>cpolar</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>cpolar</function></funcdef>
+					<paramdef>вещ<parameter>r</parameter></paramdef>
+					<paramdef>вещ<parameter>arg</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает комплексное число по его полярному представлению -- 
+				модулю <code role="кумир">r</code> и аргументу <code role="кумир">arg</code>.
+			</para>
+		</section>
+
 	</section>
+
+	<section id="математические функции">
+		<title>Некоторые математические функции</title>
 	
+		<section>
+			<title>cexp</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>cexp</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает экспоненту числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>cln</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>cln</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает натуральный логарифм числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>clg</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>clg</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает десятичный логарифм числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+	</section>
+
 	<para/>
 </article>

@@ -8,6 +8,7 @@ You should change it corresponding to functionality.
 
 #include "complexnumbersmodule.h"
 #include <kumir2-libs/stdlib/kumirstdlib.hpp>
+#include <math.h>
 
 namespace ActorComplexNumbers {
 
@@ -56,6 +57,26 @@ void ComplexNumbersModule::setAnimationEnabled(bool enabled)
 	*/
 }
 
+bool ComplexNumbersModule::check(double &x)
+{
+	if (std::isnan(x)) {
+		setError(QString::fromUtf8("Недопустимое значение"));
+        x = 0.0;
+        return false;
+	}
+    return true;
+}
+
+bool ComplexNumbersModule::check(Complex &x)
+{
+	if (std::isnan(x.re) || std::isnan(x.im)) {
+		setError(QString::fromUtf8("Недопустимое значение"));
+        x.re = x.im = 0.0;
+        return false;
+	}
+    return true;
+}
+
 qreal ComplexNumbersModule::runRe(const Complex& x)
 {
 	return x.re;
@@ -71,26 +92,70 @@ Complex ComplexNumbersModule::runConj(const Complex& x)
 	return Complex{x.re, -x.im};
 }
 
-Complex ComplexNumbersModule::runOperatorPLUS(const Complex& x, const Complex& y)
+
+qreal ComplexNumbersModule::runCabs(const Complex& x)
 {
-	Complex result;
-	result.re = x.re + y.re;
-	result.im = x.im + y.im;
-	return result;
+    double res = std::abs(fromComplex(x));
+    check(res);
+	return res;
+}
+
+qreal ComplexNumbersModule::runCarg(const Complex& x)
+{
+    double res = std::arg(fromComplex(x));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCpolar(qreal r, qreal arg)
+{
+    dcomplex z = std::polar(r, arg);
+	Complex res = toComplex(z);
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCexp(const Complex &x)
+{
+	Complex res = toComplex(exp(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCln(const Complex &x)
+{
+	Complex res = toComplex(log(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runClg(const Complex &x)
+{
+	Complex res = toComplex(log10(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runOperatorPLUS(const Complex &x, const Complex &y)
+{
+	Complex res {x.re + y.re, x.im + y.im};
+    check(res);
+	return res;
 }
 
 Complex ComplexNumbersModule::runOperatorMINUS(const Complex& x, const Complex& y)
 {
-	Complex result;
-	result.re = x.re - y.re;
-	result.im = x.im - y.im;
-	return result;
+	Complex res {x.re - y.re, x.im - y.im};
+    check(res);
+	return res;
 }
 
 Complex ComplexNumbersModule::runOperatorASTERISK(const Complex& _x, const Complex& _y)
 {
     dcomplex x = fromComplex(_x), y = fromComplex(_y);
-    return toComplex(x * y);
+    Complex res = toComplex(x * y);
+    check(res);
+    return res;
 }
 
 Complex ComplexNumbersModule::runOperatorSLASH(const Complex& _x, const Complex& _y)
@@ -101,24 +166,30 @@ Complex ComplexNumbersModule::runOperatorSLASH(const Complex& _x, const Complex&
 	}
 
     dcomplex x = fromComplex(_x), y = fromComplex(_y);
-    return toComplex(x / y);
+    Complex res = toComplex(x / y);
+    check(res);
+    return res;
+}
+
+Complex ComplexNumbersModule::runOperatorPOWER(const Complex& _x, const Complex& _y)
+{
+    dcomplex x = fromComplex(_x), y = fromComplex(_y);
+    Complex res = toComplex(pow(x, y));
+    check(res);
+    return res;
 }
 
 
-Complex ComplexNumbersModule::runOperatorASSIGN(const int x)
+Complex ComplexNumbersModule::runOperatorASSIGN(int x)
 {
-	Complex result;
-	result.re = x;
-	result.im = 0;
-	return result;
+	Complex res {(double)x, 0.0};
+	return res;
 }
 
-Complex ComplexNumbersModule::runOperatorASSIGN(const qreal x)
+Complex ComplexNumbersModule::runOperatorASSIGN(qreal x)
 {
-	Complex result;
-	result.re = x;
-	result.im = 0;
-	return result;
+	Complex res {x, 0.0};
+	return res;
 }
 
 Complex ComplexNumbersModule::runOperatorINPUT(const QString& x, bool& ok)
@@ -143,8 +214,6 @@ Complex ComplexNumbersModule::runOperatorINPUT(const QString& x, bool& ok)
 		}
 	}
 
-	bool ok1, ok2;
-	Complex result;
 	im.remove(QChar('i'), Qt::CaseInsensitive);
 	im = im.trimmed();
 	if (im.endsWith("*")) {
@@ -154,6 +223,9 @@ Complex ComplexNumbersModule::runOperatorINPUT(const QString& x, bool& ok)
 	if (im.isEmpty()) {
 		im = "1.0";
 	}
+
+	Complex result;
+	bool ok1 = false, ok2 = false;
 	result.re = re.toDouble(&ok1);
 	result.im = im.toDouble(&ok2);
 	ok = ok1 && ok2;
@@ -165,7 +237,7 @@ QString ComplexNumbersModule::runOperatorOUTPUT(const Complex& x)
 	QString re = QString::fromStdWString(Kumir::Converter::sprintfReal(x.re, 16));
 	QString im = QString::fromStdWString(Kumir::Converter::sprintfReal(x.im, 16));
 
-	QString result = re + (im.startsWith('-') ? "" : "+") + im + "i";
+	QString result = re + (im.startsWith('-') ? "" : "+") + im + "*i";
 	return result;
 }
 
