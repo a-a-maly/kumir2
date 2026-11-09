@@ -54,6 +54,13 @@
 			]
 		},
 		{
+			"name": {"ascii": "csqrt" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
 			"name": {"ascii": "cexp" },
 			"returnType": "complex",
 			"arguments": [
@@ -69,6 +76,48 @@
 		},
 		{
 			"name": {"ascii": "clg" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "csin" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "ccos" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "ctan" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "casin" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "cacos" },
+			"returnType": "complex",
+			"arguments": [
+				{ "name": "x", "baseType": "complex" }
+			]
+		},
+		{
+			"name": {"ascii": "catan" },
 			"returnType": "complex",
 			"arguments": [
 				{ "name": "x", "baseType": "complex" }

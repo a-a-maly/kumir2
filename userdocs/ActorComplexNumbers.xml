@@ -154,6 +154,20 @@
 		<title>Некоторые математические функции</title>
 	
 		<section>
+			<title>csqrt</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>csqrt</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает главное значение квадратного корня числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
 			<title>cexp</title>
 			<funcsynopsis role="кумир">
 				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
@@ -192,6 +206,90 @@
 			</funcsynopsis>
 			<para>
 				Возвращает десятичный логарифм числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>csin</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>csin</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает синус числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>ccos</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>ccos</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает косинус числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>ctan</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>ctan</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает тангенс числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>casin</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>casin</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает арксинус числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>cacos</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>cacos</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает арккосинус числа <code role="кумир">x</code>.
+			</para>
+		</section>
+
+		<section>
+			<title>catan</title>
+			<funcsynopsis role="кумир">
+				<funcsynopsisinfo><package>Комплексные числа</package></funcsynopsisinfo>
+				<funcprototype>
+					<funcdef>алг<type>компл</type><function>catan</function></funcdef>
+					<paramdef>компл<parameter>x</parameter></paramdef>
+				</funcprototype>
+			</funcsynopsis>
+			<para>
+				Возвращает арктангенс числа <code role="кумир">x</code>.
 			</para>
 		</section>
 

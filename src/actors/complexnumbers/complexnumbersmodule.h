@@ -55,9 +55,17 @@ public slots:
 	qreal runCarg(const Complex &x);
 	Complex runCpolar(qreal r, qreal arg);
 
+	Complex runCsqrt(const Complex &x);
 	Complex runCexp(const Complex &x);
 	Complex runCln(const Complex &x);
 	Complex runClg(const Complex &x);
+
+	Complex runCsin(const Complex &x);
+	Complex runCcos(const Complex &x);
+	Complex runCtan(const Complex &x);
+	Complex runCasin(const Complex &x);
+	Complex runCacos(const Complex &x);
+	Complex runCatan(const Complex &x);
 
 	Complex runOperatorPLUS(const Complex &x, const Complex &y);
 	Complex runOperatorMINUS(const Complex &x, const Complex &y);

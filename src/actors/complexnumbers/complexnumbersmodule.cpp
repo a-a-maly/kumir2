@@ -115,6 +115,13 @@ Complex ComplexNumbersModule::runCpolar(qreal r, qreal arg)
 	return res;
 }
 
+Complex ComplexNumbersModule::runCsqrt(const Complex &x)
+{
+	Complex res = toComplex(sqrt(fromComplex(x)));
+    check(res);
+	return res;
+}
+
 Complex ComplexNumbersModule::runCexp(const Complex &x)
 {
 	Complex res = toComplex(exp(fromComplex(x)));
@@ -132,6 +139,48 @@ Complex ComplexNumbersModule::runCln(const Complex &x)
 Complex ComplexNumbersModule::runClg(const Complex &x)
 {
 	Complex res = toComplex(log10(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCsin(const Complex &x)
+{
+	Complex res = toComplex(sin(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCcos(const Complex &x)
+{
+	Complex res = toComplex(cos(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCtan(const Complex &x)
+{
+	Complex res = toComplex(tan(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCasin(const Complex &x)
+{
+	Complex res = toComplex(asin(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCacos(const Complex &x)
+{
+	Complex res = toComplex(acos(fromComplex(x)));
+    check(res);
+	return res;
+}
+
+Complex ComplexNumbersModule::runCatan(const Complex &x)
+{
+	Complex res = toComplex(atan(fromComplex(x)));
     check(res);
 	return res;
 }
