@@ -1,12 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-        "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
-        [
-                <!ENTITY % times SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent">
-                <!ENTITY % hellip SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent">
-                ]>
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+    [
+        <!ENTITY % times SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent">
+        <!ENTITY % hellip SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent">
+    ]
+>
+
 <section xmlns:mathml="http://www.w3.org/1998/Math/MathML">
     <title>Математика</title>
+
     <section>
         <title>sqrt</title>
         <funcsynopsis role="кумир">
@@ -382,6 +385,7 @@
             </programlisting>
         </example>
     </section>
+
     <section>
         <title>exp</title>
         <funcsynopsis role="кумир">
@@ -407,6 +411,7 @@
             </programlisting>
         </example>
     </section>
+
     <section>
         <title>min</title>
         <funcsynopsis role="кумир">
@@ -420,6 +425,7 @@
             Возвращает наименьшее из вещественных значений <parameter>x</parameter> или <parameter>y</parameter>.
         </para>
     </section>
+
     <section>
         <title>max</title>
         <funcsynopsis role="кумир">
@@ -447,6 +453,7 @@
             </programlisting>
         </example>
     </section>
+
     <section>
         <title>imin</title>
         <funcsynopsis role="кумир">
@@ -460,6 +467,7 @@
             Возвращает наименьшее из целых значений <parameter>x</parameter> или <parameter>y</parameter>.
         </para>
     </section>
+
     <section>
         <title>imax</title>
         <funcsynopsis role="кумир">
@@ -487,6 +495,7 @@
             </programlisting>
         </example>
     </section>
+
     <section>
         <title>div</title>
         <funcsynopsis role="кумир">
@@ -564,8 +573,9 @@
             </funcprototype>
         </funcsynopsis>
         <para>
-			Случайное число из интервала от 0 до <parameter>x</parameter>: при последовательных вызовах этой функции получается
-            последовательность случайных чисел, равномерно распределенных на [0,&nbsp;<parameter>x</parameter>].
+            Случайное вещественное число из отрезка от 0 до <parameter>x</parameter>:
+            при последовательных вызовах этой функции получается последовательность случайных чисел,
+            равномерно распределенных на отрезке [0,&nbsp;<parameter>x</parameter>].
         </para>
         <example>
             <programlisting role="кумир"><![CDATA[
@@ -592,14 +602,14 @@
         <funcsynopsis role="кумир">
             <funcprototype>
                 <funcdef>алг вещ <function>rand</function></funcdef>
-                <paramdef>вещ <parameter>x</parameter></paramdef>
-                <paramdef>вещ <parameter>y</parameter></paramdef>
+                <paramdef>вещ <parameter>a</parameter></paramdef>
+                <paramdef>вещ <parameter>b</parameter></paramdef>
             </funcprototype>
         </funcsynopsis>
         <para>
-            Случайное число из интервала от <parameter>x</parameter> до <parameter>y</parameter>:
+            Случайное вещественное число из отрезка от <parameter>a</parameter> до <parameter>b</parameter>:
             при последовательных вызовах этой функции получается последовательность случайных чисел,
-            равномерно распределенных на [<parameter>x</parameter>,&nbsp;<parameter>y</parameter>].
+            равномерно распределенных на [<parameter>a</parameter>,&nbsp;<parameter>b</parameter>].
         </para>
     </section>
 
@@ -608,28 +618,31 @@
         <funcsynopsis role="кумир">
             <funcprototype>
                 <funcdef>алг цел <function>irnd</function></funcdef>
-                <paramdef>цел <parameter>x</parameter></paramdef>
+                <paramdef>цел <parameter>n</parameter></paramdef>
             </funcprototype>
         </funcsynopsis>
         <para>
-            Случайное целое число из интервала от 0 до <parameter>x</parameter>: при последовательных вызовах этой функции получается
-            последовательность случайных чисел, равномерно распределенных на [0,&nbsp;<parameter>x</parameter>].
+            Случайное целое положительное число из отрезка от 1 до <parameter>n</parameter>:
+            при последовательных вызовах этой функции получается последовательность
+            случайных чисел, равномерно распределенных на множестве
+            {&nbsp;<code role="кумир">1</code>&hellip;<code role="кумир">n</code>&nbsp;}.
         </para>
     </section>
-	
-	<section>
+
+    <section>
         <title>irand</title>
         <funcsynopsis role="кумир">
             <funcprototype>
                 <funcdef>алг цел <function>irand</function></funcdef>
-                <paramdef>цел <parameter>x</parameter></paramdef>
-				<paramdef>цел <parameter>y</parameter></paramdef>
+                <paramdef>цел <parameter>a</parameter></paramdef>
+                <paramdef>цел <parameter>b</parameter></paramdef>
             </funcprototype>
         </funcsynopsis>
         <para>
-            Случайное целое число из интервала от <parameter>x</parameter> до <parameter>y</parameter>: при последовательных вызовах 
-			этой функции получается последовательность случайных чисел, равномерно распределенных на 
-			[<parameter>x</parameter>,&nbsp;<parameter>y</parameter>].
+            Случайное целое число из отрезка от <parameter>a</parameter> до <parameter>b</parameter>:
+            при последовательных вызовах этой функции получается последовательность случайных чисел,
+            равномерно распределенных на множестве
+            {&nbsp;<code role="кумир">a</code>&hellip;<code role="кумир">b</code>&nbsp;}.
         </para>
     </section>
 
