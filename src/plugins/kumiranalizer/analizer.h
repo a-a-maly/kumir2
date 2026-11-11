@@ -8,17 +8,17 @@
 
 #include <kumir2-libs/dataformats/ast.h>
 
-#include <QVector>
+#include <vector>
+#include <QSet>
 class QDir;
 
 namespace KumirAnalizer
 {
 
-class Analizer
-	: public QObject
-	, public Shared::Analizer::InstanceInterface
-	, public Shared::Analizer::ASTCompilerInterface
-	, public Shared::Analizer::HelperInterface
+class Analizer : public QObject,
+	public Shared::Analizer::InstanceInterface,
+	public Shared::Analizer::ASTCompilerInterface,
+	public Shared::Analizer::HelperInterface
 {
 	Q_OBJECT
 	Q_INTERFACES(Shared::Analizer::InstanceInterface
@@ -26,12 +26,12 @@ class Analizer
 		Shared::Analizer::HelperInterface
 	)
 	friend class AnalizerPrivate;
+
 public:
-
 	explicit Analizer(class KumirAnalizerPlugin *plugin, bool teacherMode);
-	Shared::AnalizerInterface *plugin();
-
 	~Analizer();
+
+	Shared::AnalizerInterface *plugin();
 
 	/**
 	  * Set application-wide (while initialization)
@@ -72,10 +72,9 @@ public slots:
 	Shared::Analizer::LineProp lineProp(int lineNo, const QString &text) const;
 
 	QStringList algorithmsAvailabaleForModule(const AST::ModulePtr currentModule) const;
-	bool isModuleAlwaysEnabled(const AST::ModulePtr module) const;
+	static bool isModuleAlwaysEnabled(const AST::ModulePtr module);
 	static bool isModuleAlwaysEnabled(const QString &localizedName);
 	QStringList moduleNames() const;
-
 
 	QList<QPoint> lineRanks() const;
 
@@ -133,9 +132,6 @@ private /*methods*/:
 	) const;
 
 	void removeAllVariables(const AST::VariablePtr var);
-
-	void setHiddenBaseLine(int lineNo);
-	void setHiddenText(const QString &text, int baseLineNo);
 
 
 	/** Find algorhitm in AST by real line number */
@@ -216,10 +212,7 @@ private /*fields*/:
 	QStringList _sourceText;
 	QList<TextStatementPtr> _statements;
 
-	QString _teacherText;
-	int _hiddenBaseLine;
-
-	static QStringList _AlwaysAvailableModulesName;
+	static QSet<QString> _AlwaysAvailableModulesName;
 	static QLocale::Language _NativeLanguage;
 
 	bool _teacherMode;

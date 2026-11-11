@@ -22,7 +22,18 @@ set(SOURCES
 	syntaxanalizer.cpp
 	kumfilehandler.cpp
 	quickreferencewidget.cpp
+    mrtl.cpp
+    mstrings.cpp
+    mfiles.cpp
 )
+
+set(HEADERS
+    stdlibmodules.h
+    mrtl.h 
+    mstrings.h 
+    mfiles.h 
+)
+
 
 set(MOC_HEADERS
 	kumiranalizerplugin.h
@@ -39,7 +50,7 @@ kumir2_wrap_cpp(MOC_SOURCES ${MOC_HEADERS})
 
 kumir2_add_plugin(
 	NAME        KumirAnalizer
-	SOURCES     ${UI_SOURCES} ${MOC_SOURCES} ${SOURCES}
+	SOURCES     ${UI_SOURCES} ${MOC_SOURCES} ${SOURCES} ${HEADERS}
 	LIBRARIES   ${QT_LIBRARIES} VM ExtensionSystem ErrorMessages DataFormats Widgets
 )
 

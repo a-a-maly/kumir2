@@ -33,9 +33,7 @@ QuickReferenceWidget::QuickReferenceWidget(KumirAnalizerPlugin *plugin)
 	ui->functionsContents->setLayout(new FlowLayout);
 
 	_builtInModules.append(new StdLibModules::RTL);
-	if (Analizer::isModuleAlwaysEnabled(QString::fromUtf8("Файлы"))) {
 		_builtInModules.append(new StdLibModules::Files);
-	}
 	if (Analizer::isModuleAlwaysEnabled(QString::fromUtf8("Строки"))) {
 		_builtInModules.append(new StdLibModules::Strings);
 	}

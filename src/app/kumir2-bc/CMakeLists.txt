@@ -4,6 +4,6 @@ project(kumir2-bc)
 
 kumir2_add_launcher(
 	NAME            kumir2-bc
-	CONFIGURATION   "Actor*(tablesOnly),!KumirCompilerTool,KumirCodeGenerator,KumirAnalizer\(teacher,preload=Files,preload=Strings\)"
+	CONFIGURATION   "Actor*(tablesOnly),!KumirCompilerTool,KumirCodeGenerator,KumirAnalizer\(teacher\)"
 )
 

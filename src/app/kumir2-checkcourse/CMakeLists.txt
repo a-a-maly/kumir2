@@ -4,6 +4,6 @@ project(kumir2-checkcourse)
 
 kumir2_add_launcher(
 	NAME            kumir2-checkcourse
-	CONFIGURATION   "ActorRobot,!CourseManager,KumirCodeGenerator,KumirCodeRun\(console\),KumirAnalizer\(teacher,preload=Files,preload=Strings\)"
+	CONFIGURATION   "ActorRobot,!CourseManager,KumirCodeGenerator,KumirCodeRun\(console\),KumirAnalizer\(teacher\)"
 )
 

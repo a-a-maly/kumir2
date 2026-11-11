@@ -25,7 +25,7 @@ namespace KumirAnalizer
 
 SyntaxAnalizer::SyntaxAnalizer(
 	Lexer *lexer,
-	const QStringList &alwaysEnabledModules,
+	const QSet<QString> *alwaysEnabledModules,
 	bool teacherMode,
 	Analizer *parent
 ) :
@@ -901,7 +901,7 @@ SyntaxAnalizer::suggestValueAutoComplete(
 			std::back_inserter(enabledModules),
 		[this, currentModule](AST::ModulePtr p) {
 			return p->isEnabledFor(currentModule) ||
-				alwaysEnabledModules_.contains(p->header.name);
+				alwaysEnabledModules_->contains(p->header.name);
 		});
 		std::for_each(enabledModules.begin(), enabledModules.end(),
 		[&algs](AST::ModulePtr p) {
@@ -1794,7 +1794,7 @@ QStringList SyntaxAnalizer::checkForConflictingNames(const ModulePtr &moduleToCh
 			bool moduleAvailable =
 				module->builtInID == 0xF0 ||
 				module->isEnabledFor(parentModule) ||
-				alwaysEnabledModules_.contains(module->header.name)
+				alwaysEnabledModules_->contains(module->header.name)
 				;
 			if (moduleAvailable && module != moduleToCheck) {
 				Q_FOREACH (const AST::AlgorithmPtr &alg, module->header.algorhitms) {
@@ -4273,7 +4273,7 @@ bool SyntaxAnalizer::findAlgorithm(
 		bool moduleAvailable =
 			module->builtInID == 0xF0 ||
 			module->isEnabledFor(currentModule) ||
-			alwaysEnabledModules_.contains(module->header.name) ||
+			alwaysEnabledModules_->contains(module->header.name) ||
 
 			// #kumir2-1821 -- bug here!
 			(currentAlgorithm &&
@@ -4674,7 +4674,7 @@ bool SyntaxAnalizer::findUserType(const QString &name, AST::Type &type, AST::Mod
 		AST::ModulePtr  mod = ast_->modules[i];
 		if (mod->isEnabledFor(currentModule) ||
 			(mod->header.type == AST::ModTypeExternal &&
-				alwaysEnabledModules_.contains(mod->header.name))
+				alwaysEnabledModules_->contains(mod->header.name))
 		) {
 			for (int j = 0; j < mod->header.types.size(); j++) {
 				AST::Type tp = mod->header.types[j];

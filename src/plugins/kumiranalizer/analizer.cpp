@@ -16,6 +16,72 @@ namespace KumirAnalizer
 
 QLocale::Language Analizer::_NativeLanguage = QLocale::Russian;
 
+
+Analizer::Analizer(KumirAnalizerPlugin *plugin, bool teacherMode) :
+	QObject(plugin),
+	_teacherMode(teacherMode),
+	_plugin(plugin)
+{
+	_ast = AST::DataPtr(new AST::Data());
+	_lexer = new Lexer(this);
+	_pdAutomata = new PDAutomata(_plugin->myResourcesDir(), this);
+	_syntaxAnalizer = new SyntaxAnalizer(_lexer, &_AlwaysAvailableModulesName, _teacherMode, this);
+	_syntaxAnalizer->init(_statements, _ast);
+
+	setModuleAlwaysAvailable("Files");
+	setModuleAlwaysAvailable("Strings");
+
+	ActorInterface *stdFunct = new StdLibModules::RTL;
+	_builtinModules.push_back(stdFunct);
+	createModuleFromActor_stage1(stdFunct, 0xF0);
+	createModuleFromActor_stage2(stdFunct);
+
+	ActorInterface *filesFunct = new StdLibModules::Files;
+	_builtinModules.push_back(filesFunct);
+	createModuleFromActor_stage1(filesFunct, 0xF1);
+	createModuleFromActor_stage2(filesFunct);
+
+	ActorInterface *stringsFunct = new StdLibModules::Strings;
+	_builtinModules.push_back(stringsFunct);
+	createModuleFromActor_stage1(stringsFunct, 0xF2);
+	createModuleFromActor_stage2(stringsFunct);
+
+
+	QList<ExtensionSystem::KPlugin *> actors = _plugin->loadedPlugins("Actor*");
+	foreach (QObject *o, actors) {
+		ActorInterface *actor = qobject_cast<ActorInterface *>(o);
+		if (actor) {
+			createModuleFromActor_stage1(actor, 0);
+		}
+	}
+	foreach (QObject *o, actors) {
+		ActorInterface *actor = qobject_cast<ActorInterface *>(o);
+		if (actor) {
+			createModuleFromActor_stage2(actor);
+		}
+	}
+}
+
+Analizer::~Analizer()
+{
+	_ast.clear();
+
+	delete _lexer;
+	_lexer = 0;
+
+	delete _pdAutomata;
+	_pdAutomata = 0;
+
+	delete _syntaxAnalizer;
+	_syntaxAnalizer = 0;
+
+	for (Shared::ActorInterface *p: _builtinModules) {
+		delete p;
+	}
+	_builtinModules.clear();
+}
+
+
 void Analizer::connectSignalImportsChanged(QObject *receiver, const char *slot)
 {
 	QObject::connect(_syntaxAnalizer, SIGNAL(importsChanged(QStringList)),
@@ -56,57 +122,17 @@ void Analizer::setSourceLanguage(const QDir &resourcesRoot, const QLocale::Langu
 void Analizer::setModuleAlwaysAvailable(const QByteArray &moduleName)
 {
 	if (moduleName == "Files") {
-		Analizer::_AlwaysAvailableModulesName.append(QString::fromUtf8("Файлы"));
+		Analizer::_AlwaysAvailableModulesName << QString::fromUtf8("Файлы");
 	} else if (moduleName == "Strings") {
-		Analizer::_AlwaysAvailableModulesName.append(QString::fromUtf8("Строки"));
+		Analizer::_AlwaysAvailableModulesName << QString::fromUtf8("Строки");
 	} else if (moduleName == "Keyboard") {
-		Analizer::_AlwaysAvailableModulesName.append(QString::fromUtf8("Клавиатура"));
+		Analizer::_AlwaysAvailableModulesName << QString::fromUtf8("Клавиатура");
 	} else {
 		QList<ActorInterface *> actors = ExtensionSystem::PluginManager::instance()->findPlugins<ActorInterface>();
 		Q_FOREACH (ActorInterface *actor, actors) {
 			if (moduleName == actor->asciiModuleName()) {
-				Analizer::_AlwaysAvailableModulesName.append(actor->localizedModuleName(QLocale::Russian));
+				Analizer::_AlwaysAvailableModulesName << actor->localizedModuleName(QLocale::Russian);
 			}
-		}
-	}
-}
-
-Analizer::Analizer(KumirAnalizerPlugin *plugin, bool teacherMode)
-	: QObject(plugin)
-	, _teacherMode(teacherMode)
-	, _plugin(plugin)
-{
-
-	_hiddenBaseLine = -1;
-	_ast = AST::DataPtr(new AST::Data());
-	_lexer = new Lexer(this);
-	_pdAutomata = new PDAutomata(_plugin->myResourcesDir(), this);
-	_syntaxAnalizer = new SyntaxAnalizer(_lexer, _AlwaysAvailableModulesName, _teacherMode, this);
-	_syntaxAnalizer->init(_statements, _ast);
-	_builtinModules.resize(16);
-	ActorInterface *stdFunct = new StdLibModules::RTL;
-	_builtinModules[0] = stdFunct;
-	createModuleFromActor_stage1(stdFunct, 0xF0);
-	createModuleFromActor_stage2(stdFunct);
-	ActorInterface *filesFunct = new StdLibModules::Files;
-	_builtinModules[1] = filesFunct;
-	createModuleFromActor_stage1(filesFunct, 0xF1);
-	createModuleFromActor_stage2(filesFunct);
-	ActorInterface *stringsFunct = new StdLibModules::Strings;
-	_builtinModules[2] = stringsFunct;
-	createModuleFromActor_stage1(stringsFunct, 0xF2);
-	createModuleFromActor_stage2(stringsFunct);
-	QList<ExtensionSystem::KPlugin *> actors = _plugin->loadedPlugins("Actor*");
-	foreach (QObject *o, actors) {
-		ActorInterface *actor = qobject_cast<ActorInterface *>(o);
-		if (actor) {
-			createModuleFromActor_stage1(actor, 0);
-		}
-	}
-	foreach (QObject *o, actors) {
-		ActorInterface *actor = qobject_cast<ActorInterface *>(o);
-		if (actor) {
-			createModuleFromActor_stage2(actor);
 		}
 	}
 }
@@ -213,8 +239,9 @@ QStringList Analizer::algorithmsAvailabaleForModule(const AST::ModulePtr current
 {
 	QStringList result;
 	for (int i = 0; i < _ast->modules.size(); i++) {
+
 		const AST::ModulePtr module = _ast->modules[i];
-		bool alwaysEnabled = i == 0 || _AlwaysAvailableModulesName.contains(module->header.name);
+		bool alwaysEnabled = (i == 0) || _AlwaysAvailableModulesName.contains(module->header.name);
 		bool enabled = alwaysEnabled || module->isEnabledFor(currentModule);
 		if (enabled) {
 			for (int j = 0; j < _ast->modules[i]->impl.algorhitms.size(); j++) {
@@ -225,7 +252,7 @@ QStringList Analizer::algorithmsAvailabaleForModule(const AST::ModulePtr current
 	return result;
 }
 
-bool Analizer::isModuleAlwaysEnabled(const ModulePtr module) const
+bool Analizer::isModuleAlwaysEnabled(const ModulePtr module)
 {
 	return _AlwaysAvailableModulesName.contains(module->header.name);
 }
@@ -245,62 +272,6 @@ QStringList Analizer::moduleNames() const
 	return result;
 }
 
-
-void Analizer::setHiddenText(const QString &text, int baseLineNo)
-{
-//    teacherText = text;
-//    hiddenBaseLine = baseLineNo;
-
-//    // Clean old teacher algorhitms
-//    foreach (Statement * st, teacherStatements) {
-//        foreach (LexemPtr lx, st->data) {
-//            delete lx;
-//        }
-//        delete st;
-//    }
-
-//    teacherStatements.clear();
-
-//    for (int i=0; i<ast->modules.size(); i++) {
-
-//    }
-
-//    // Compile teacher algorhitms
-//    lexer->splitIntoStatements(text.split("\n"), baseLineNo, teacherStatements, gatherExtraTypeNames());
-
-//    // Build structure
-//    pdAutomata->init(true, teacherStatements, ast);
-//    pdAutomata->process();
-//    pdAutomata->postProcess();
-
-//    // Build tables for hidden algorhitms
-//    analizer->init(teacherStatements, ast);
-//    analizer->buildTables(false);
-
-//    // Do complete semantic analisys
-//    QList<Statement*> statementsToAnalize = statements+teacherStatements;
-
-//    foreach (Statement * st, teacherStatements) {
-//        foreach (AST::VariablePtr var, st->variables) {
-//            removeAllVariables(var);
-//        }
-//    }
-
-//    analizer->init(statementsToAnalize, ast);
-//    analizer->processAnalisys();
-//    analizer->syncStatements();
-
-}
-
-
-Analizer::~Analizer()
-{
-	delete _lexer;
-	delete _pdAutomata;
-	delete _builtinModules[0];
-	delete _builtinModules[1];
-	delete _builtinModules[2];
-}
 
 
 Shared::Analizer::TextAppend Analizer::closingBracketSuggestion(int lineNo) const
@@ -410,8 +381,7 @@ void Analizer::setSourceText(const QString &text)
 }
 
 
-
-QStringList Analizer::_AlwaysAvailableModulesName;
+QSet<QString> Analizer::_AlwaysAvailableModulesName;
 
 void Analizer::createModuleFromActor_stage1(Shared::ActorInterface *actor, quint8 forcedId)
 {
@@ -631,7 +601,7 @@ QList<Shared::Analizer::Error> Analizer::errors() const
 QList<Shared::Analizer::LineProp> Analizer::lineProperties() const
 {
 	QList<Shared::Analizer::LineProp> result;
-	QStringList lines = _sourceText + _teacherText.split("\n");
+	QStringList lines = _sourceText;
 	for (int i = 0; i < lines.size(); i++) {
 		result << Shared::Analizer::LineProp(lines[i].size(), LxTypeEmpty);
 	}
@@ -683,7 +653,7 @@ QStringList Analizer::imports() const
 QList<QPoint> Analizer::lineRanks() const
 {
 	QList<QPoint> result;
-	QStringList lines = _sourceText + _teacherText.split("\n");
+	QStringList lines = _sourceText;
 	for (int i = 0; i < lines.size(); i++) {
 		result << QPoint(0, 0);
 	}

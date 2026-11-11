@@ -39,7 +39,7 @@ class SyntaxAnalizer : public QObject
 	Q_OBJECT
 public:
 	explicit SyntaxAnalizer(class Lexer *lexer_,
-		const QStringList &alwaysEnabledModules_,
+		const QSet<QString> *alwaysEnabledModules_,
 		bool teacherMode,
 		Analizer *analizer);
 	void init(QList<TextStatementPtr> &statements_
@@ -69,7 +69,7 @@ private /*fields*/:
 	AST::AlgorithmPtr algorhitm_;
 	QList<TextStatement> statements_;
 	QSet<QString> unresolvedImports_;
-	QStringList alwaysEnabledModules_;
+	const QSet<QString> *alwaysEnabledModules_;
 	QString sourceDirName_;
 	int currentPosition_;
 	bool teacherMode_;

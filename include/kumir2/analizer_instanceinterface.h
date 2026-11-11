@@ -5,6 +5,8 @@
 #include "analizer_helperinterface.h"
 
 #include <QtPlugin>
+#include <QList>
+#include <QVector>
 #include <QPoint>
 
 #include <string>
