@@ -80,7 +80,6 @@ Section "Kumir" Kumir
 
     CreateDirectory "$SMPROGRAMS\Кумир ${VERSION_SUFFIX}"
     CreateShortCut "$SMPROGRAMS\Кумир ${VERSION_SUFFIX}\Кумир-Стандарт.lnk" "$INSTDIR\bin\kumir2-classic.exe"
-    CreateShortCut "$SMPROGRAMS\Кумир ${VERSION_SUFFIX}\Кумир для старших классов.lnk" "$INSTDIR\bin\kumir2-highgrade.exe"
     CreateShortCut "$SMPROGRAMS\Кумир ${VERSION_SUFFIX}\Кумир-Про.lnk" "$INSTDIR\bin\kumir2-ide.exe"
     CreateShortCut "$SMPROGRAMS\Кумир ${VERSION_SUFFIX}\Кумир для учителей.lnk" "$INSTDIR\bin\kumir2-teacher.exe"
     CreateShortCut "$SMPROGRAMS\Кумир ${VERSION_SUFFIX}\Удалить Кумир.lnk" "$INSTDIR\uninstall.exe"
