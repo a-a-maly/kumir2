@@ -255,6 +255,17 @@ public /* methods */:
 		qDebug() << "PenScale" << factor << "mPen->scale" << mPen->scale();
 		//  mutex.unlock();
 	}
+	void setAutoFit(bool state)
+	{
+		autoFit = state;
+		if (!state) {
+			fitPending = false;
+		}
+	}
+	bool isFitPending() const
+	{
+		return fitPending;
+	}
 	bool isAutoNet() const
 	{
 		return autoNet;
@@ -320,6 +331,7 @@ public slots:
 	void zoomOut();
 	void zoomNorm();
 	void zoomFullDraw();
+	void fitDrawing();
 
 	void showNavigator(bool state);
 
@@ -341,6 +353,8 @@ private:
 	double netStepX, netStepY;
 	QColor netColor;
 	bool autoNet;
+	bool autoFit;
+	bool fitPending;
 	bool penIsDrawing;
 	Color penColor;
 	ExtensionSystem::GlobalState currentState;

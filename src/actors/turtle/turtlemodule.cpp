@@ -62,53 +62,15 @@ ExtensionSystem::SettingsPtr TurtleModule::TurtleSettings()
 
 QRectF TurtleScene::getRect() //User lines bounding rect
 {
-	QRectF boundRect = QRectF(QPointF(-50, 50), QPointF(50, 50)); //default rect
-
-	for (int i = 0; i < lines.count(); i++) {
-		if (lines.at(i)->line().dx() >= 0) {
-			if (lines.at(i)->line().p1().x() < boundRect.left() || (i == 0)) {
-				boundRect.setLeft(lines.at(i)->line().p1().x());
-
-			}
-			if (lines.at(i)->line().p2().x() > boundRect.right() || (i == 0)) {
-				boundRect.setRight(lines.at(i)->line().p2().x());
-			}
-		}
-
-		if (lines.at(i)->line().dx() < 0) {
-			if (lines.at(i)->line().p2().x() < boundRect.left() || (i == 0)) {
-				boundRect.setLeft(lines.at(i)->line().p2().x());
-			}
-			if (lines.at(i)->line().p1().x() > boundRect.right() || (i == 0)) {
-				boundRect.setRight(lines.at(i)->line().p1().x());
-
-			}
-		}
-
-		if (lines.at(i)->line().dy() >= 0) {
-			qDebug() << "Bott" << boundRect.bottom() << "Top:" << boundRect.top() << "line p1y:" << lines.at(i)->line().p1().y() << "line p2y:" << lines.at(i)->line().p2().y();
-			if (-lines.at(i)->line().p1().y() > boundRect.bottom() || (i == 0)) {
-				boundRect.setBottom(-lines.at(i)->line().p1().y());
-			}
-			if (lines.at(i)->line().p2().x() > boundRect.top() || (i == 0)) {
-				boundRect.setTop(-lines.at(i)->line().p2().y());
-
-			}
-		}
-
-		if (lines.at(i)->line().dy() < 0) {
-			qDebug() << "Bott" << boundRect.bottom() << "Top:" << boundRect.top() << "line p1y:" << lines.at(i)->line().p1().y() << "line p2y:" << lines.at(i)->line().p2().y();
-			if (lines.at(i)->line().p2().y() < boundRect.top()) {
-				boundRect.setTop(-lines.at(i)->line().p2().y());
-			}
-			if (lines.at(i)->line().p1().y() > boundRect.bottom() || (i == 0)) {
-				boundRect.setBottom(lines.at(i)->line().p1().y());
-
-			}
-		}
+	if (lines.isEmpty()) {
+		return QRectF(-50, -50, 100, 100);
 	}
-
-	return (boundRect);
+	QRectF boundRect;
+	for (int i = 0; i < lines.count(); i++) {
+		const QLineF line = lines.at(i)->line();
+		boundRect |= QRectF(line.p1(), line.p2()).normalized();
+	}
+	return boundRect;
 }
 
 bool TurtleScene::isUserLine(QGraphicsItem *obj)
@@ -556,17 +518,24 @@ void TurtleView::paintEvent(QPaintEvent *event)
 }
 void TurtleView::resizeEvent(QResizeEvent *event)
 {
+	if (viewport()->size().isEmpty()) {
+		return;
+	}
+	bool centerOnOrigin = firstResize;
 	if (firstResize) {
 		qDebug() << "FirstresizeEvent";
-		QPointF maxRight = mapToScene(geometry().bottomRight());
-
-		centerOn(maxRight.x() / 2 - maxRight.x() / 5, -maxRight.y() / 2 + maxRight.y() / 4);
+		centerOn(0, 0);
 	}
 	firstResize = false;
 	qDebug() << "resizeEvent";
 	// setViewportUpdateMode (QGraphicsView::NoViewportUpdate);
 	if (!pressed) {
 		DRAW->drawNet();
+	}
+	if (DRAW->isFitPending()) {
+		DRAW->fitDrawing();
+	} else if (centerOnOrigin) {
+		centerOn(0, 0);
 	}
 	update();
 	// setViewportUpdateMode (QGraphicsView::SmartViewportUpdate);
@@ -589,6 +558,7 @@ void TurtleView::mouseReleaseEvent(QMouseEvent *event)
 void TurtleView::mouseMoveEvent(QMouseEvent *event)
 {
 	if (pressed) {
+		DRAW->setAutoFit(false);
 		//  dr_mutex->lock();
 		//   setViewportUpdateMode (QGraphicsView::SmartViewportUpdate);
 		QPointF delta = mapToScene(press_pos) - mapToScene(event->pos());
@@ -705,6 +675,7 @@ void    TurtleView::wheelEvent(QWheelEvent *event)
 	if (!dr_mutex->tryLock(20)) {
 		return;
 	}
+	DRAW->setAutoFit(false);
 	float numDegrees = event->delta() / 8;
 	qDebug() << "whell:" << numDegrees;
 	//        c_scale=c_scale*0.8;
@@ -723,6 +694,7 @@ void    TurtleView::wheelEvent(QWheelEvent *event)
 
 	} else {
 		if (c_scale < 3e-05) {
+			dr_mutex->unlock();
 			return;
 		}
 		setZoom(zoom() * (1 / 1.189207));
@@ -747,6 +719,8 @@ TurtleModule::TurtleModule(ExtensionSystem::KPlugin *parent)
 	AncY = 0;
 	//Tpult = 0;
 	animation = false;
+	autoFit = true;
+	fitPending = false;
 }
 
 void TurtleModule::createGui()
@@ -830,6 +804,7 @@ void TurtleModule::createGui()
 	zoomOut();
 	zoomOut();
 	zoomOut();
+	autoFit = true;
 }
 
 QString TurtleModule::initialize(const QStringList &configurationParameters, const ExtensionSystem::CommandLine &)
@@ -866,8 +841,6 @@ QString TurtleModule::initialize(const QStringList &configurationParameters, con
 	*/
 	// TODO implement me
 	using namespace ExtensionSystem;  // not to write "ExtensionSystem::" each time in this method scope
-	Q_UNUSED(old);  // Remove this line on implementation
-	Q_UNUSED(current);  // Remove this line on implementation
 	usleep(10);
 	CurScene->fromBufferToScene();
 	CurScene->fromBufferToScene();
@@ -883,7 +856,11 @@ QString TurtleModule::initialize(const QStringList &configurationParameters, con
 
 	drawNet();
 
-
+	const bool programFinished = old == Shared::PluginInterface::GS_Running
+		&& (current == Shared::PluginInterface::GS_Observe || current == Shared::PluginInterface::GS_Unlocked);
+	if (programFinished && autoFit) {
+		zoomFullDraw();
+	}
 }
 
 /* public slot */ void TurtleModule::loadActorData(QIODevice *source)
@@ -1084,6 +1061,7 @@ QString TurtleModule::initialize(const QStringList &configurationParameters, con
 }
 void TurtleModule::zoomIn()
 {
+	setAutoFit(false);
 	CurView->setZoom(CurView->zoom() * 2);
 	scalePen(Pen()->scale() * (0.5));
 	CurView->setNet();
@@ -1091,6 +1069,7 @@ void TurtleModule::zoomIn()
 };
 void TurtleModule::zoomOut()
 {
+	setAutoFit(false);
 	mutex.lock();
 	CurView->setZoom(CurView->zoom() * 0.5);
 	scalePen(Pen()->scale() * (2));
@@ -1102,6 +1081,7 @@ void TurtleModule::zoomOut()
 };
 void TurtleModule::zoomNorm()
 {
+	setAutoFit(false);
 
 
 	CurView->setZoom(50);
@@ -1207,72 +1187,52 @@ void TurtleModule::CreatePen(void)
 
 void TurtleModule::handleGuiReady()
 {
-	zoomFullDraw();
+	fitPending = true;
+	fitDrawing();
+	fitPending = false;
 }
 
 
 void TurtleModule::zoomFullDraw()
 {
-	QPointF start_d = CurView->mapToScene(CurView->geometry().topLeft());
-	QPointF end_d = CurView->mapToScene(CurView->geometry().bottomRight());
-	qreal width = end_d.x() - start_d.x();
-	qreal heigth = end_d.y() - start_d.y();
-	qreal size = qMax(width, heigth);
-	QRectF sceneInfoRect = CurScene->getRect(); //Get user lines bounding rect from scene
+	fitPending = true;
+	QTimer::singleShot(0, this, SLOT(fitDrawing()));
+}
 
-	sceneInfoRect.setY(-sceneInfoRect.y());//Convert to Kumir Coordinates
+void TurtleModule::fitDrawing()
+{
+	if (!fitPending) {
+		return;
+	}
+	const QSize viewSize = CurView->viewport()->size();
+	if (viewSize.isEmpty()) {
+		return;
+	}
+	if (!mutex.tryLock()) {
+		QTimer::singleShot(50, this, SLOT(fitDrawing()));
+		return;
+	}
+	QRectF drawRect = CurScene->getRect();
+	mutex.unlock();
+	drawRect |= QRectF(mPen->penPos() - QPointF(1, 1), QSizeF(2, 2));
+	const QSizeF penPixels = mPen->sceneBoundingRect().size() * CurView->zoom();
+	const qreal fitWidth = qMax(viewSize.width() - 2 * penPixels.width(), viewSize.width() / 2.0);
+	const qreal fitHeight = qMax(viewSize.height() - 2 * penPixels.height(), viewSize.height() / 2.0);
 
-	qDebug() << "SceneInfoRect:" << sceneInfoRect << "L" << sceneInfoRect.left() << "R" << sceneInfoRect.right() << "t" << sceneInfoRect.top() << "B" << sceneInfoRect.bottom() << "MaxSize" << qMax(sceneInfoRect.height(), sceneInfoRect.width());
-
-	//  CurView->setSceneRect(QRectF(QPointF(sceneInfoRect.x()-(CurView->geometry().width())*(1/zoom()),sceneInfoRect.y()-(CurView->geometry().height()*2)*(1/zoom())),
-	//                              QPointF(sceneInfoRect.x()+1000*(1/zoom()),sceneInfoRect.y()+1000*(1/zoom()))));
-
-	QPointF cnt = sceneInfoRect.center();
-	cnt.setY(-cnt.y());
-	qreal size2 = qMax(sceneInfoRect.height(), sceneInfoRect.width());
 	qreal oldZoom = CurView->zoom();
-	qreal newZoom = (CurView->zoom() * (size / size2)) * 0.43; //Some magic
-	qDebug() << "NZ" << newZoom;
-	CurView->setZoom(newZoom / 2);
-	sceneInfoRect.moveCenter(cnt);//convert to scene coord
-	CurView->setSceneRect(sceneInfoRect);
-	qDebug() << "PenScale" << Pen()->scale() << "ZoomMP" << oldZoom / newZoom;
-
-
-	// CurView->centerOn(0,0);
-	start_d = CurView->sceneRect().topLeft();
-	end_d = CurView->sceneRect().bottomRight();
-	QRectF viewRect(start_d, end_d);
-
-
-	cnt = sceneInfoRect.center();
-
-	qDebug() << "realCenter2 correction" << viewRect.center();
-	qDebug() << "Need Center" << sceneInfoRect.center();
-	qDebug() << "Dist" << (QVector2D(sceneInfoRect.center()) - QVector2D(viewRect.center())).length();
-	QVector2D offScene(QVector2D(CurView->mapFromScene(sceneInfoRect.center())) - QVector2D(CurView->mapFromScene(viewRect.center())));
-	qDebug() << "CurCenter" << CurView->sceneRect().center() << "Y off scene offset" << offScene.toPoint().y() << "Scbar" << CurView->verticalScrollBar()->value();
-	// CurView->verticalScrollBar()->setValue(CurView->verticalScrollBar()->value()+offScene.toPoint().y());
-	// CurView->horizontalScrollBar()->setValue(CurView->horizontalScrollBar()->value());
-
-
-	CurView->centerOn(sceneInfoRect.center());
-	CurView->setZoom(newZoom);
+	CurView->setZoom(0.9 * qMin(fitWidth / drawRect.width(), fitHeight / drawRect.height()));
 	CurView->setNet();
+	qreal marginX = viewSize.width() / CurView->zoom();
+	qreal marginY = viewSize.height() / CurView->zoom();
+	CurView->setSceneRect(CurView->sceneRect() | drawRect.adjusted(-marginX, -marginY, marginX, marginY));
+	CurView->centerOn(drawRect.center());
 	drawNet();
-	CurView->centerOn(sceneInfoRect.center());
-	CurView->update();
-	CurView->forceRedraw();
-	start_d = CurView->sceneRect().topLeft();
-	end_d = CurView->sceneRect().bottomRight();
-	viewRect = QRectF(start_d, end_d);
-
-
-	// }
-	scalePen(Pen()->scale() * (oldZoom / newZoom));
+	CurView->centerOn(drawRect.center());
+	scalePen(Pen()->scale() * (oldZoom / CurView->zoom()));
 	navigator->updateSelf(NetStepX(), NetStepY());
+	fitPending = false;
+	autoFit = true;
 	CurView->update();
-	CurView->forceRedraw();
 }
 
 
