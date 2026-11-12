@@ -9,8 +9,8 @@ kumir2_add_launcher(
 	APP_ICON_NAME   "kumir2-classic"
 	X_ICONS_DIR     "../../../app_icons/linux/hicolor"
 	WIN_ICONS_DIR   "../../../app_icons/win32"
-	X_NAME          "Kumir Standard Edition"
-	X_NAME_ru       "Кумир"
+	X_NAME          "Kumir 2 Standard Edition"
+	X_NAME_ru       "Кумир 2"
 	X_CATEGORIES    "Education,X-KDE-Edu-Misc"
 	CONFIGURATION   "CourseManager,Editor,Actor*,KumirAnalizer\(preload=Files\),*CodeGenerator,KumirCodeRun,!CoreGUI\(notabs,nostartpage,nosessions\)"
 )
