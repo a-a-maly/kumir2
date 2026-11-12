@@ -37,6 +37,12 @@ public /* methods */:
 	QWidget *pultWidget() const;
 
 	void handleGuiReady();
+	void showInitialView();
+
+	void setAutoFit(bool state)
+	{
+		autoFit = state;
+	}
 
 	bool isAutoNet() const
 	{
@@ -115,6 +121,7 @@ private:
 	static ExtensionSystem::SettingsPtr DrawSettings();
 	void createGui();
 	void CreatePen(void);
+	void fitView(const QRectF &rect, const QSizeF &marginPixels);
 
 private:
 	DrawScene *CurScene;
@@ -124,6 +131,8 @@ private:
 	double netStepX, netStepY;
 	QColor netColor;
 	bool autoNet;
+	bool autoFit;
+	bool fitPending;
 	bool penIsDrawing;
 	bool firstShow;
 	QColor penColor;

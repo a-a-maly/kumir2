@@ -47,13 +47,14 @@ void DrawView::forceRedraw()
 
 void DrawView::resizeEvent(QResizeEvent *event)
 {
+	if (viewport()->size().isEmpty()) {
+		return;
+	}
 	if (firstResize) {
 		qDebug() << "FirstresizeEvent";
-		QPointF maxRight = mapToScene(geometry().bottomRight());
-
-		centerOn(maxRight.x() / 2 - maxRight.x() / 5, -maxRight.y() / 2 + maxRight.y() / 4);
+		firstResize = false;
+		DRAW->showInitialView();
 	}
-	firstResize = false;
 	qDebug() << "resizeEvent";
 	// setViewportUpdateMode (QGraphicsView::NoViewportUpdate);
 	if (!pressed) {
@@ -80,6 +81,7 @@ void DrawView::mouseReleaseEvent(QMouseEvent *event)
 void DrawView::mouseMoveEvent(QMouseEvent *event)
 {
 	if (pressed) {
+		DRAW->setAutoFit(false);
 		dr_mutex->lock();
 		setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
 		QPointF delta = mapToScene(press_pos) - mapToScene(event->pos());
@@ -183,6 +185,7 @@ void DrawView::setNet()
 
 void    DrawView::wheelEvent(QWheelEvent *event)
 {
+	DRAW->setAutoFit(false);
 	float numDegrees = event->delta() / 8;
 	qDebug() << "whell:" << numDegrees;
 	//        c_scale=c_scale*0.8;

@@ -43,72 +43,22 @@ void DrawScene::fromBufferToScene()
 	itemsBuffer.clear();
 }
 
-//User lines bounding rect
+//User lines and texts bounding rect
 QRectF DrawScene::getRect() const
 {
-	QRectF boundRect = QRectF(QPointF(-5, -5), QPointF(5, 5)); //default rect
-
-	for (int i = 0; i < lines.count(); i++) {
-		if (lines.at(i)->line().dx() >= 0) {
-			if (lines.at(i)->line().p1().x() < boundRect.left() || (i == 0)) {
-				//deb = lines.at(i)->line().p1().x();
-				boundRect.setLeft(lines.at(i)->line().p1().x());
-
-			}
-			if (lines.at(i)->line().p2().x() > boundRect.right() || (i == 0)) {
-				boundRect.setRight(lines.at(i)->line().p2().x());
-
-			}
-
-		}
-		if (lines.at(i)->line().dx() < 0) {
-			if (lines.at(i)->line().p2().x() < boundRect.left() || (i == 0))
-
-			{
-				//deb = lines.at(i)->line().p1().x();
-				boundRect.setLeft(lines.at(i)->line().p2().x());
-			}
-			if (lines.at(i)->line().p1().x() > boundRect.right() || (i == 0)) {
-				//deb = lines.at(i)->line().p1().x();
-				boundRect.setRight(lines.at(i)->line().p1().x());
-
-			}
-
-		}
-		if (lines.at(i)->line().dy() >= 0) {
-			qDebug() << "Bott" << boundRect.bottom() << "Top:" << boundRect.top() << "line p1y:" << lines.at(i)->line().p1().y() << "line p2y:" << lines.at(i)->line().p2().y();
-			if (-lines.at(i)->line().p1().y() > boundRect.bottom() || (i == 0)) {
-				//deb = -lines.at(i)->line().p1().y();
-				boundRect.setBottom(-lines.at(i)->line().p1().y());
-			}
-			if (lines.at(i)->line().p2().y() > boundRect.top() || (i == 0)) {
-				boundRect.setTop(lines.at(i)->line().p2().y());
-
-			}
-		}
-		if (lines.at(i)->line().dy() < 0) {
-			qDebug() << "Bott" << boundRect.bottom() << "Top:" << boundRect.top() << "line p1y:" << lines.at(i)->line().p1().y() << "line p2y:" << lines.at(i)->line().p2().y();
-			if (lines.at(i)->line().p2().y() < boundRect.top()) {
-				boundRect.setTop(lines.at(i)->line().p2().y());
-				//deb = -lines.at(i)->line().p2().y();
-			}
-			if (lines.at(i)->line().p1().y() > boundRect.bottom() || (i == 0)) {
-				boundRect.setBottom(lines.at(i)->line().p1().y());
-				//deb = lines.at(i)->line().p1().y();
-			}
-		}
+	if (lines.isEmpty() && texts.isEmpty()) {
+		return QRectF(-5, -5, 10, 10);
 	}
-
-	//if(boundRect.width()!=boundRect.height())
-	// {
-	//     qreal size=qMax(boundRect.width(),boundRect.width());
-	//     boundRect.setWidth(size);
-	//     boundRect.setHeight(size);
-
-	//  }
-
-	return (boundRect);
-};
+	QRectF boundRect;
+	for (int i = 0; i < lines.count(); i++) {
+		const QLineF line = lines.at(i)->line();
+		boundRect |= QRectF(line.p1(), line.p2()).normalized();
+	}
+	for (int i = 0; i < texts.count(); i++) {
+		boundRect |= texts.at(i)->sceneBoundingRect();
+	}
+	return boundRect;
+}
 
 bool DrawScene::isUserLine(QGraphicsItem *obj) const
 {
