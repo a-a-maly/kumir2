@@ -11,6 +11,10 @@ set(SOURCES
 	vm_abstract_handlers.cpp
 	variant.cpp
 	vm.cpp
+	vm_mrtl.cpp
+	vm_mfiles.cpp
+	vm_mstrings.cpp
+	vm_mspecial.cpp
 )
 
 kumir2_add_library(
